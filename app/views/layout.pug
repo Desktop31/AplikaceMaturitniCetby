@@ -1,9 +1,16 @@
+//-
+  zde: 
+    základní rozložení všech stránek
+
+block vars
+
 html(lang="cs")
   head
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/css/style.css" type="text/css")
-    title Panel studenta
+    block title
+    block scripts
   body 
-    h1 Panel studenta
+    block mainContainer

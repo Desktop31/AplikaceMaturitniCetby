@@ -1,0 +1,19 @@
+extends main.pug 
+
+//-
+  zde: 
+    hlavní stránka učitele
+    seznam tříd
+
+block vars
+  - const title = "Panel učitele"
+
+append content 
+  ul
+    li 
+      a(href="/teacher/class") Třída 1
+    li 
+      a(href="/teacher/class") Třída 2
+    li 
+      a(href="/teacher/class") Třída 3
+  
