@@ -1,7 +1,411 @@
-h1 {
-  color: white;
+/* ===============
+      GLOBAL
+================== */
+
+:root {
+  --darkBlue: #171923;
+  --sspGreen: #199F58;
+  --sspBlue: #003E90;
+  --sspRed: #E2001A;
+  --gray: #ABACB0;
+  --grayBg: #3C3E46;
+  --grayBgAlt: #2b2c2e;
+  --grayBgOpacity: rgba(60, 62, 70, 0.7);
+  --white: #EDEDE1;
+  --selected: #0E5831;
+
+  --text: var(--white);
+  --textContrast: var(--white);
+  --background: var(--darkBlue);
+}
+
+:focus {
+  outline: 3px solid var(--selected);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  transition: 0.2s;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: #666;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--background);
+}
+
+
+/* =================
+      TYPOGRAPHY
+==================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+h1 {
+  color: var(--text);
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
+}
+
+label {
+  color: var(--text);
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.error {
+  font-family: 'Roboto', sans-serif;
+  color: orangered;
+}
+
+
+/* =================
+      INPUTS
+==================== */
+
+input {
+  -webkit-appearance: none;
+  border-radius: 2px;
+  border-style: none;
+  padding: 5px;
+  margin: 5px 0 10px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+
+input[type=submit] {
+  color: var(--textContrast);
+  padding: 10px;
+  background-color: var(--grayBgAlt);
+  border-radius: 4px;
+}
+
+input[type=submit]:hover {
+  background-color: var(--sspBlue);
+}
+
+
+/* =================
+      HEADER
+==================== */
+
+header {
+  display: flex;
+  align-items: center;
+  height: max-content;
+  width: 100%;
+  border: 0;
+  border-bottom: 8px solid;
+  border-image: linear-gradient(to right, var(--sspGreen) 33%, var(--sspBlue) 33%, var(--sspBlue) 67%, var(--sspRed) 67%, var(--sspRed) 100%) 5;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.title {
+  flex: 4;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  height: 9em;
+}
+
+.title h1 {
+  text-transform: uppercase;
+  line-height: 140%;
+}
+
+header nav {
+  flex: 25%;
+  text-align: center;
+  /* display: flex;
+  flex-wrap: wrap; */
+  width: 100%;
+  margin: 10px 0 15px 0;
+}
+
+/* header nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+} */
+
+/* header nav ul li{
+  flex: 50%;
+  max-width: 50%;
+  align-self: center;
+  padding: 13px 20px 13px 20px;
+  margin: 5px;
+} */
+
+header nav a {
+  font-size: 1.1rem;
+  font-weight: 500;
+  white-space: nowrap;
+  text-transform: uppercase;
+  margin: 5px;
+  padding: 13px 20px 13px 20px;
+  border-radius: 7px;
+  transition: 0.2s;
+}
+
+.active {
+  color: var(--textContrast);
+  background-color: var(--grayBg);
+  border: 3px solid var(--selected);
+}
+
+header nav a:hover {
+  background-color: var(--grayBgOpacity);
+}
+
+
+/* =================
+    MAIN CONTAINER
+==================== */
+
+#mainContainer {
+  flex: 1;
+  min-height: max-content;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  width: 120ch;
+  flex-direction: column;
+  padding: 10px 0 10px 0;
+}
+
+.content h1 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 610px) {
+  .content {
+    width: 100%;
+  }
+}
+
+/* ===GENERAL TILE MENU========= */
+
+.tileMenu {
+  display: flex;
+  align-self: center;
+  flex-wrap: wrap;
+  padding: 0;
+  list-style: none;
+}
+
+.tileMenu li {
+  flex: 100%;
+  max-width: 100%;
+  display: flex;
+}
+
+.tileMenu li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 0.3rem;
+  padding: 1rem;
+  background-color: var(--grayBgOpacity);
+  border-radius: 4px;
+  transition: 0.2s;
+}
+
+.tileMenu li a:hover {
+  /* background-color: var(--sspGreen); */
+}
+
+@media only screen and (max-width: 610px) {
+  .tileMenu {
+    width: 95%;
+  }
+}
+
+/* ===MAIN TILE MENU========= */
+
+.mainMenu {
+  height: 70%;
+  align-items: stretch;
+}
+
+.mainMenu li {
+  flex: 50%;
+  max-width: 50%;
+}
+
+.mainMenu li a {
+  white-space: nowrap;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.mainMenu li a:hover {
+  background-color: var(--sspGreen);
+}
+
+@media only screen and (max-width: 610px) {
+  .mainMenu li {
+    flex: 100%;
+    max-width: none;
+  }
+
+}
+
+/* ===LOGIN========= */
+
+.login {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  margin: 50px 0 50px 0;
+  padding: 35px;
+  background-color: var(--grayBg);
+  border-radius: 7px;
+  width: 400px;
+}
+
+.login h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.inputField {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 610px) {
+  .login {
+    margin: 20px 0 20px 0;
+    width: 95%;
+  }
+}
+
+/* ===BOOKLIST========= */
+
+.book {
+  flex: 1;
+}
+
+.book div {
+  display: flex;
+  align-items: center;
+}
+
+.bookList li a {
+  display: block;
+  width: max-content;
+  align-self: stretch;
+}
+
+.bookList .fa-solid {
+  display: flex;
+}
+
+.bookList span{
+  margin-left: 10px;
+}
+
+.bookAuthor {
+  margin-top: 10px;
+}
+
+.unread {
+  background-color: #3C3E46ab;
+}
+
+.read {
+  background-color: #5a95b9ab;
+}
+
+.done {
+  background-color: #199f58ab;
+}
+
+.bookList .fa-globe:hover {
+  background-color: var(--sspBlue);
+}
+
+.bookList .fa-note-sticky:hover {
+  background-color: orange;
+  cursor: pointer;
+}
+
+.bookList .fa-plus:hover {
+  background-color: var(--sspGreen);
+  cursor: pointer;
+}
+
+.bookList .fa-minus:hover {
+  background-color: var(--sspRed);
+  cursor: pointer;
+}
+
+/* =================
+      FOOTER
+==================== */
+
+footer {
+  bottom: 0;
+  height: max-content;
+  width: 100%;
+  border: 0;
+  border-top: 8px solid;
+  border-image: linear-gradient(to right, var(--sspGreen) 33%, var(--sspBlue) 33%, var(--sspBlue) 67%, var(--sspRed) 67%, var(--sspRed) 100%) 5;
+  padding: 10px;
+  background-color: var(--background);
+}
+
+
+footer ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+footer li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+  width: 70px;
+  height: 70px;
+  margin: 5px 20px 5px 20px;
+}
+
+footer li img {
+  height: 70px;
+  transition: 0.2s;
+}
+
+footer li img:hover {
+  height: 63px;
 }

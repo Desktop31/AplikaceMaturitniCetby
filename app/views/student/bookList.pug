@@ -4,11 +4,43 @@ extends main.pug
   zde: 
     seznam knih studenta z pohledu studenta
 
-block vars
-  - const title = "Seznam knih"
+append vars
+  - const title = "Můj seznam četby"
 
-append content
-  ul
-    li Kniha 1
-    li Kniha 2
-    li Kniha 3
+append content 
+  ul(class="tileMenu bookList")
+    li(class="unread")
+      a(class="book") 
+        div
+          i(class="fa-solid fa-book") &nbsp;
+          span Nový epochální výlet pana Broučka, tentokráte do XV. století
+        div(class="bookAuthor")
+          i(class="fa-solid fa-user-pen")
+          span Svatopluk Čech
+      a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+      a(class="fa-solid fa-note-sticky" title="Poznámky")
+      a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")
+    
+    li(class="read")
+      a(class="book") 
+        div
+          i(class="fa-solid fa-book") &nbsp;
+          span Proměna
+        div(class="bookAuthor")
+          i(class="fa-solid fa-user-pen")
+          span Franz Kafka
+      a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+      a(class="fa-solid fa-note-sticky" title="Poznámky")
+      a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")
+    
+    li(class="done")
+      a(class="book") 
+        div
+          i(class="fa-solid fa-book") &nbsp;
+          span Stařec a moře
+        div(class="bookAuthor")
+          i(class="fa-solid fa-user-pen")
+          span Ernest Hemingway
+      a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+      a(class="fa-solid fa-note-sticky" title="Poznámky")
+      a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")

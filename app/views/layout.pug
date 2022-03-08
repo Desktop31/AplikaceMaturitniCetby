@@ -2,15 +2,65 @@
   zde: 
     základní rozložení všech stránek
 
+- var login = "<i class=\"fa-solid fa-right-to-bracket\"></i> &nbsp;Přihlásit"
+- var loginHref = "/login"
+
+//- změna na odhlášení pokud existuje platná session
+- 
+  if(session.email) {
+    login = "<i class=\"fa-solid fa-right-from-bracket\"></i> &nbsp;Odhlásit"
+    loginHref = "/logout"
+  }
+
 block vars
 
+doctype html
 html(lang="cs")
   head
     meta(charset="UTF-8")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/css/style.css" type="text/css")
+    link(rel="shortcut icon", href="/media/favicon.ico", type="image/x-icon")
     block title
     block scripts
+      script(src="https://kit.fontawesome.com/4a7584d50e.js" crossorigin="anonymous")
   body 
-    block mainContainer
+    header 
+      a(href="/" class="title" tabindex="-1")
+        img(src="/media/logo.png", alt="SSPBrnoLogo" id="logo")
+        h1 Aplikace maturitní četby
+      nav
+        a(href="/" id="home")
+          i(class="fa-solid fa-house") &nbsp;
+          |  Domů
+        a(href=loginHref id="login") !{login}
+        //-
+          li
+            a(href=loginHref id="mujSeznam") Můj seznam
+    
+    div(id="mainContainer")
+      block mainContainer
+    
+    footer 
+      ul 
+        li 
+          a(href="http://www.sspbrno.cz") 
+            img(src="/media/logo.png", alt="SSPBrno")
+        li 
+          a(href="https://sspbrno.edupage.org/") 
+            img(src="/media/icons/edupage.png", alt="EduPage")
+        li 
+          a(href="https://outlook.office.com/mail/") 
+            img(src="/media/icons/outlook.png", alt="OutLook")
+        li 
+          a(href="https://sspbrno.sharepoint.com/") 
+            img(src="/media/icons/sharepoint.png", alt="SharePoint")        
+        li 
+          a(href="https://moodle.sspbrno.cz") 
+            img(src="/media/icons/moodle.png", alt="Moodle")
+        li 
+          a(href="https://stravovani.sspbrno.cz/") 
+            img(src="/media/icons/icanteen.png", alt="iCanteen")
+
+    block code

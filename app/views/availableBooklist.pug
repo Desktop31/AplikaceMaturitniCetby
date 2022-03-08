@@ -4,12 +4,83 @@ extends layout.pug
   zde: 
     seznam dostupných knih k výběru
 
-block vars
-  - const title = "Webová aplikace maturitní četby"
+append vars
+  - const title = "Seznam děl"
 
 block title
   title #{title}
 
 block mainContainer 
+  div(class="content")
     h1 #{title}
-    a(href="./login") Login
+    ul(class="tileMenu bookList") 
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-plus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+      li 
+        a(class="book") 
+          div
+            i(class="fa-solid fa-book") &nbsp;
+            span Nový epochální výlet pana Broučka, tentokráte do XV. století
+          div(class="bookAuthor")
+            i(class="fa-solid fa-user-pen")
+            span Svatopluk Čech
+        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")

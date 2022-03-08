@@ -4,30 +4,28 @@ extends layout.pug
   zde: 
     příhlášení studenta/učitele
 
-block vars
+append scripts 
+  script(src="/js/active.js") 
+
+append vars
   - const title = "Přihlášení"
 
 block title 
   title #{title}
 
 block mainContainer
-  h1 #{title}
-  form(action="/login", method="post")
-    div 
-      table 
-        tr 
-          td 
-            label(for="email")  Email 
-          td 
-            input(type="email", name="email", id="email", placeholder="student@purkynka.cz", value=email)
-        tr 
-          td 
-            label(for="password")  Heslo 
-          td 
-            input(type="password", name="password", id="password", placeholder="••••••••")
-        tr 
-          td 
-          td 
-            button(type="submit") Login
-        tr
-          td #{errorMsg}
+  div(class="content")
+    div(class="login")
+      form(action="/login", method="post")
+        h1 #{title}
+        div(class="inputField") 
+          label(for="email")  Email 
+          input(type="email", name="email", id="email", placeholder="student@purkynka.cz", value=email)
+          label(for="password")  Heslo 
+          input(type="password", name="password", id="password", placeholder="••••••••")
+          input(type="submit" value="Přihlásit")
+      h3(class="error") #{errorMsg}
+
+append code 
+  script.
+    setActive("login")

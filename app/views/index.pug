@@ -5,12 +5,42 @@ extends layout.pug
     úvodní stránka
     dlaždicové menu
 
-block vars
-  - const title = "Webová aplikace maturitní četby"
+append scripts 
+  script(src="/js/active.js") 
+
+append vars
+  - const title = "Maturitní četba"
+  - var firstTile = login
+  - var fTileHref = loginHref
+  - 
+    if(session.email) {
+      firstTile = "<i class=\"fa-solid fa-list-check\"></i> &nbsp;Můj seznam"
+      fTileHref = "/student/bookList"
+    }
 
 block title
   title #{title}
 
 block mainContainer 
-    h1 #{title}
-    a(href="./login") Login
+  div(class="content")
+    ul(class="tileMenu mainMenu")
+      li
+        a(href=fTileHref) !{firstTile}
+      li 
+        a(href="/booklist") 
+          i(class="fa-solid fa-book")  &nbsp;
+          | Seznam děl
+      li 
+        //- LINK
+        a(href="/") 
+          i(class="fa-solid fa-book-open-reader")  &nbsp;
+          | Manuál 
+      li 
+        //- LINK
+        a(href="/") 
+          i(class="fa-solid fa-circle-question")  &nbsp;
+          | O aplikaci
+      
+append code 
+  script.
+    setActive("home")
