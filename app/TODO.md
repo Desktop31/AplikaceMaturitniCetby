@@ -1,8 +1,8 @@
 ### Obecné:
-  - SQL injection ochrana (htmlspecialchars vstupy) <br>
-  - mysql dotazy <br>
-  - pokud kniha done, změnit možnost odebrat na požádat o výměnu <br>
-  - zobrazit +/- v seznamu knih pouze pokud je přihlášen žák <br>
+  - SQL injection ochrana (htmlspecialchars vstupy)
+  - mysql dotazy
+  - pokud kniha done, změnit možnost odebrat na požádat o výměnu
+  - zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
 
 ### Student:
   - poznámky u knihy z pohledu žáka
