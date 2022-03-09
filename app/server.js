@@ -105,33 +105,3 @@ app.get("*", (req, res) => {
 // ==
 
 app.listen(3000)
-
-/* == TODO ==
-mysql
-pokud kniha done, disable možnost odebrat
-zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
-
-student:
-  - poznámky u knihy z pohledu žáka
-  - systém pořadí knih
-  - změna pořadí knih
-
-teacher:
-  - seznam tříd
-  - seznam žáků ve třídě
-  - seznam žáka z pohledu učitele
-  - poznámky u knihy z pohledu učitele
-  - uzamknout počet knih k testu
-
-manuál
-o aplikaci
-?generátor PDF seznamu knih
-?light/dark mode switch
-
-databáze:
-  - pořadí knihy
-  - počet knih k testu ve třídě
-
-
-*/
-
