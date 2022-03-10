@@ -2,7 +2,7 @@
   - SQL injection ochrana (htmlspecialchars vstupy)
   - mysql dotazy
   - pokud kniha done, změnit možnost odebrat na požádat o výměnu
-  - zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
+  - [DONE] zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
 
 ### Student:
   - poznámky u knihy z pohledu žáka

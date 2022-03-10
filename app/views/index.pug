@@ -10,13 +10,6 @@ append scripts
 
 append vars
   - const title = "Maturitní četba"
-  - var firstTile = login
-  - var fTileHref = loginHref
-  - 
-    if(session.email) {
-      firstTile = "<i class=\"fa-solid fa-list-check\"></i> &nbsp;Můj seznam"
-      fTileHref = "/student/bookList"
-    }
 
 block title
   title #{title}
@@ -25,7 +18,21 @@ block mainContainer
   div(class="content")
     ul(class="tileMenu mainMenu")
       li
-        a(href=fTileHref) !{firstTile}
+        unless session.email 
+          a(href=loginHref) !{login}
+        else if session.role == "student"
+          a(href="/student") 
+            i(class="fa-solid fa-list-check")  &nbsp;
+            | Můj seznam
+        else if session.role == "teacher"
+          a(href="/teacher") 
+            i(class="fa-solid fa-school")  &nbsp;
+            | Moje třídy
+      if session.role == "teacher" 
+        li 
+          a(href="/teacher/requests") 
+            i(class="fa-solid fa-envelopes-bulk")  &nbsp;
+            | Žádosti
       li 
         a(href="/booklist") 
           i(class="fa-solid fa-book")  &nbsp;

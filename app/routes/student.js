@@ -4,10 +4,6 @@ const express = require("express")
 const router = express.Router()
 
 router.get("/", utils.checkStudent, function(req, res){
-    res.render("student/home")
-})
-
-router.get("/booklist", utils.checkStudent, function(req, res){
   res.render("student/booklist")
 })
 

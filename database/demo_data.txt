@@ -1,80 +1,80 @@
 -- === AUTOŘI ===
 
-INSERT INTO author (firstName, lastName)
+INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Carlo", "Goldoni");
 
-INSERT INTO author (firstName, lastName)
+INSERT INTO author (`firstName`, `lastName`)
 VALUES (NULL, "Moliére");
 
-INSERT INTO author (firstName, lastName)
+INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Svatopluk", "Čech");
 
-INSERT INTO author (firstName, lastName)
+INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Arthur Conan", "Doyle");
 
-INSERT INTO author (firstName, lastName)
+INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Antoine de", "Saint-Exupéry");
 
 
 -- === KNIHY ===
 
-INSERT INTO book (name, century, category, link)
+INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Sluha dvou pánů", "18.", "svet", "https://www.databazeknih.cz/knihy/sluha-dvou-panu-71316");
 
-INSERT INTO book (name, century, category, link)
+INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Lakomec", "18.", "svet", "https://www.databazeknih.cz/knihy/lakomec-1958");
 
-INSERT INTO book (name, century, category, link)
+INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Nový epochální výlet pana Broučka, tentokráte do XV. století", "19.", "cz", "https://www.databazeknih.cz/knihy/pan-broucek-novy-epochalni-vylet-pana-broucka-tentokrat-do-xv-stoleti-1170");
 
-INSERT INTO book (name, century, category, link)
+INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Pes Baskervillský", "20./21.", "svet", "https://www.databazeknih.cz/knihy/pribehy-sherlocka-holmese-pes-baskervillsky-35044");
 
-INSERT INTO book (name, century, category, link)
+INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Malý princ", "20./21.", "svet", "https://www.databazeknih.cz/knihy/maly-princ-606");
 
 
 -- === KNIHY AUTOŘI ===
 
-INSERT INTO book_has_author (book_id, author_id)
+INSERT INTO book_has_author (`book_id`, `author_id`)
 VALUES ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5");
 
 -- === UČITELÉ ===
 
 -- HESLO: helenadavidova --
-INSERT INTO teacher (firstName, lastName, email, password) 
+INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
 VALUES ("Helena", "Davidová", "helena.davidova@purkynka.cz", "$2a$10$t2fMEi23kLYh2Oi.yb0nI.HP/te0vpz2O.ca3W8kZ5rV0.aVqMB5W");
 
 -- HESLO: petrnovak --
-INSERT INTO teacher (firstName, lastName, email, password) 
+INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
 VALUES ("Petr", "Novák", "petr.novak@purkynka.cz", "$2a$10$O6XXm2edD59RgwVxux9KLOI7eoTUSvqLn3xrGuM/kmUfqw4z80pNO");
 
 -- HESLO: jiribrzobohaty --
-INSERT INTO teacher (firstName, lastName, email, password) 
+INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
 VALUES ("Jiří", "Brzobohatý", "jiri.brzobohaty@purkynka.cz", "$2a$10$qjbAK8MeTLSWD9HCiWOLwuAJkhK6PJ277BnkHPjhYSkvk.NAqTASe");
 
 
 -- === TŘÍDY ===
 
-INSERT INTO class (firstYear, name, teacher_id) 
+INSERT INTO class (`firstYear`, `name`, `teacher_id`) 
 VALUES ('2018', 'V4C', '1'), ('2018', 'V4A', '1');
 
-INSERT INTO class (firstYear, name, teacher_id) 
+INSERT INTO class (`firstYear`, `name`, `teacher_id`) 
 VALUES ('2019', 'V3C', '2');
 
 
 -- === STUDENTI ===
 
 -- HESLO: tomaskrejci --
-INSERT INTO student (firstName, lastName, email, password, class_id)
+INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
 VALUES ("Tomáš", "Krejčí", "krejci.tomas@purkynka.cz", "$2a$10$VVa/HJv0FMcoCRLTO6LEl.Lr1kn9ljz.C29FJs8EGyRV/uVmPF2YK", "1");
 
 -- HESLO: zdenekborovec --
-INSERT INTO student (firstName, lastName, email, password, class_id)
+INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
 VALUES ("Zdeněk", "Borovec", "borovec.zdenek@purkynka.cz", "$2a$10$XDvp5nMwBYhqWejuK3Kc/e1rqye0ZxP/MIzBaEUfzhsAFZ6zFk4x2", "1");
 
 -- HESLO: vitrosicky --
-INSERT INTO student (firstName, lastName, email, password, class_id)
+INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
 VALUES ("Vít", "Rosický", "rosicky.vit@purkynka.cz", "$2a$10$VwvYEfy28s4lzJoCHGrcjuYn0JBHWC.TwIwm2b6e1kTambtWtdkiy", "2");
 
 
@@ -82,10 +82,10 @@ VALUES ("Vít", "Rosický", "rosicky.vit@purkynka.cz", "$2a$10$VwvYEfy28s4lzJoCH
 
 -- tomas krejci --
 
-INSERT INTO student_has_book (student_id, book_id, state)
-VALUES ("1", "1", "unread"), ("1", "2", "read"), ("1", "3", "done");
+INSERT INTO student_has_book (`student_id`, `book_id`, `order`, `state`)
+VALUES ("1", "1", "0", "unread"), ("1", "2", "1", "read"), ("1", "3", "2", "done");
 
 -- zdenek borovec --
 
-INSERT INTO student_has_book (student_id, book_id)
-VALUES ("2", "4"), ("2", "1");
+INSERT INTO student_has_book (`student_id`, `book_id`, `order`)
+VALUES ("2", "4", "0"), ("2", "1", "1");

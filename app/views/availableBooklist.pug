@@ -13,74 +13,22 @@ block title
 block mainContainer 
   div(class="content")
     h1 #{title}
-    ul(class="tileMenu bookList") 
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-plus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
-      li 
-        a(class="book") 
-          div
-            i(class="fa-solid fa-book") &nbsp;
-            span Nový epochální výlet pana Broučka, tentokráte do XV. století
-          div(class="bookAuthor")
-            i(class="fa-solid fa-user-pen")
-            span Svatopluk Čech
-        a(href="https://www.databazeknih.cz/" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-        a(class="fa-solid fa-minus" title="Přidat do mého seznamu")
+    unless (data) 
+      h3(class="error") Došlo k chybě
+    if (data)
+      ul(class="tileMenu bookList") 
+        each book in data
+          li 
+            a(class="book") 
+              div
+                i(class="fa-solid fa-book") &nbsp;
+                span #{book.name}
+              div(class="bookAuthor")
+                i(class="fa-solid fa-user-pen")
+                span #{book.firstName} #{book.lastName}
+            a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+            if session.role == "student"
+              if book.id
+                a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")
+              else
+                a(class="fa-solid fa-plus" title="Přidat do mého seznamu")
