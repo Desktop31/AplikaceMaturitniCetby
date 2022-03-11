@@ -9,11 +9,14 @@ append vars
   - const title = "Moje třídy"
 
 append content 
-  ul
+  ul(class="tileMenu list")
     li 
-      a(href="/teacher/class") Třída 1
+      a(href="/teacher/class" class="mainItem") Třída 1
+      a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")
     li 
-      a(href="/teacher/class") Třída 2
+      a(href="/teacher/class" class="mainItem") Třída 2
+      a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")
     li 
-      a(href="/teacher/class") Třída 3
+      a(href="/teacher/class" class="mainItem") Třída 3
+      a(href="" class="fa-solid fa-lock" title="Odemknout výběr")
   

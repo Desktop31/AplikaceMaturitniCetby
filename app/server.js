@@ -86,6 +86,11 @@ app.post("/login", function(req, res) {
   }
 
   dbman.getStudent (req.body.email, async function(err, data) {
+    if (err) {
+      res.render("login", { email: req.body.email, errorMsg: "Došlo k chybě"})
+      return
+    }
+
     if (data.length != 0) { // našlo studenta
       try {
         if (await bcrypt.compare(req.body.password, data[0].password)) { // kontrola hesla
@@ -94,7 +99,7 @@ app.post("/login", function(req, res) {
           req.session.firstName = data[0].firstName
           req.session.lastName = data[0].lastName
           req.session.role = "student"
-          res.redirect("student")
+          res.redirect("/")
         } else { // špatné heslo
           res.render("login", { email: req.body.email, errorMsg: "Chybné údaje!"})
         }
@@ -111,7 +116,7 @@ app.post("/login", function(req, res) {
               req.session.firstName = data[0].firstName
               req.session.lastName = data[0].lastName
               req.session.role = "teacher"
-              res.redirect("teacher")
+              res.redirect("/")
             } else { // špatné heslo
               res.render("login", { email: req.body.email, errorMsg: "Chybné údaje!"})
             }

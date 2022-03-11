@@ -16,10 +16,10 @@ block mainContainer
     unless (data) 
       h3(class="error") Došlo k chybě
     if (data)
-      ul(class="tileMenu bookList") 
+      ul(class="tileMenu list") 
         each book in data
           li 
-            a(class="book") 
+            a(class="mainItem") 
               div
                 i(class="fa-solid fa-book") &nbsp;
                 span #{book.name}

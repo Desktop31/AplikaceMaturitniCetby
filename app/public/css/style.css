@@ -121,6 +121,12 @@ header {
   align-items: center;
 }
 
+@media only screen and (max-width: 610px) {
+  .title {
+    text-align: center;
+  }
+}
+
 #logo {
   height: 9em;
 }
@@ -133,27 +139,9 @@ header {
 header nav {
   flex: 25%;
   text-align: center;
-  /* display: flex;
-  flex-wrap: wrap; */
   width: 100%;
   margin: 10px 0 15px 0;
 }
-
-/* header nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: right;
-} */
-
-/* header nav ul li{
-  flex: 50%;
-  max-width: 50%;
-  align-self: center;
-  padding: 13px 20px 13px 20px;
-  margin: 5px;
-} */
 
 header nav a {
   font-size: 1.1rem;
@@ -300,28 +288,28 @@ header nav a:hover {
   }
 }
 
-/* ===BOOKLIST========= */
+/* ===BOOKLIST / CLASSLIST / GENERAL LIST========= */
 
-.book {
+.mainItem {
   flex: 1;
 }
 
-.book div {
+.mainItem div {
   display: flex;
   align-items: center;
 }
 
-.bookList li a {
+.list li a {
   display: block;
   width: max-content;
   align-self: stretch;
 }
 
-.bookList .fa-solid {
+.list .fa-solid {
   display: flex;
 }
 
-.bookList span{
+.list span{
   margin-left: 10px;
 }
 
@@ -341,24 +329,41 @@ header nav a:hover {
   background-color: #199f58ab;
 }
 
-.bookList .fa-globe:hover {
+.list .fa-globe:hover {
   background-color: var(--sspBlue);
 }
 
-.bookList .fa-note-sticky:hover {
+.list .fa-note-sticky:hover {
   background-color: orange;
   cursor: pointer;
 }
 
-.bookList .fa-plus:hover {
+.list .fa-plus:hover {
   background-color: var(--sspGreen);
   cursor: pointer;
 }
 
-.bookList .fa-minus:hover {
+.list .fa-minus:hover {
   background-color: var(--sspRed);
   cursor: pointer;
 }
+
+.list .fa-right-left:hover {
+  background-color: var(--grayBgAlt);
+  cursor: pointer;
+}
+
+.list .fa-lock-open:hover {
+  background-color: #46462e;
+  cursor: pointer;
+}
+
+.list .fa-lock:hover {
+  background-color: #2b462e;
+  cursor: pointer;
+}
+
+
 
 /* =================
       FOOTER

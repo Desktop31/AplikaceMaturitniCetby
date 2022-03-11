@@ -19,12 +19,15 @@ WHERE s.id_student = shb.student_id AND b.id_book = shb.book_id AND s.id_student
 ON bl.id_book = sb.id_book;
 
 
+-- Najdi údaje studenta --
 SELECT s.id_student, s.firstName, s.lastName, s.email, s.password
 FROM student s
 WHERE s.email = ?
 LIMIT 1;
 
+-- Najdi údaje učitele --
 SELECT t.id_teacher, t.firstName, t.lastName, t.email, t.password
 FROM teacher t
 WHERE t.email = ?
 LIMIT 1;
+

@@ -1,6 +1,7 @@
 ### Obecné:
   - SQL injection ochrana (htmlspecialchars vstupy)
   - mysql dotazy
+  - rozdělit knihy v seznamu podle kategorií
   - pokud kniha done, změnit možnost odebrat na požádat o výměnu
   - [DONE] zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
 
