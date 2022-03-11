@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/", utils.checkStudent, function(req, res){
   dbman.getPersonalBooklist(req.session.userid, function(err, data){
-    res.render("student/booklist", { data})
+    res.render("student/bookList", { data})
   })
 })
 
