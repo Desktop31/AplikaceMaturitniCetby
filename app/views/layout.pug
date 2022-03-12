@@ -31,10 +31,15 @@ html(lang="cs")
         img(src="/media/logo.png", alt="SSPBrnoLogo" id="logo")
         h1 Aplikace maturitní četby
       nav
-        a(href="/" id="home")
-          i(class="fa-solid fa-house") &nbsp;
-          |  Domů
-        a(href=loginHref id="login") !{login}
+        ul
+          li
+            a(href="/" id="home")
+              i(class="fa-solid fa-house") &nbsp;
+              |  Domů
+          li
+            a(href=loginHref id="login") !{login}
+          li
+            input(type="checkbox" class="fa-solid fa-moon" id="themeSwitch")
     
     div(id="mainContainer")
       block mainContainer
@@ -61,3 +66,4 @@ html(lang="cs")
             img(src="/media/icons/icanteen.png", alt="iCanteen")
 
     block code
+     script(src="/js/theme.js")

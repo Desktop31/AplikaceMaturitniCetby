@@ -55,7 +55,7 @@ h1 {
 }
 
 a {
-  color: var(--text);
+  color: var(--textContrast);
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
 }
@@ -98,6 +98,20 @@ input[type=submit]:hover {
   background-color: var(--sspBlue);
 }
 
+/* === THEME SWITCH ===== */
+
+#themeSwitch {
+  color: black;
+  margin: 5px;
+}
+
+#themeSwitch:checked {
+  color: yellow;
+}
+
+#themeSwitch:focus {
+  outline: none;
+}
 
 /* =================
       HEADER
@@ -143,7 +157,18 @@ header nav {
   margin: 10px 0 15px 0;
 }
 
+header nav ul{
+  list-style: none;
+  padding: 0;
+  margin: 0 10px 0 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+}
+
 header nav a {
+  color: var(--text);
   font-size: 1.1rem;
   font-weight: 500;
   white-space: nowrap;
@@ -161,9 +186,15 @@ header nav a {
 }
 
 header nav a:hover {
+  color: var(--textContrast);
   background-color: var(--grayBgOpacity);
 }
 
+@media only screen and (max-width: 680px) {
+  header nav ul {
+    justify-content: center;
+  }
+}
 
 /* =================
     MAIN CONTAINER
@@ -271,9 +302,14 @@ header nav a:hover {
 }
 
 .login h1 {
+  color: var(--textContrast);
   text-align: center;
   font-size: 3rem;
   margin-bottom: 20px;
+}
+
+.login label {
+  color: var(--textContrast);
 }
 
 .inputField {
@@ -294,15 +330,29 @@ header nav a:hover {
   flex: 1;
 }
 
+.ghover:hover {
+  background-color: var(--sspGreen);
+}
+
 .mainItem div {
   display: flex;
   align-items: center;
+}
+
+.twocol {
+  width: 100%;
+}
+
+.twocol li {
+  flex: 50%;
+  max-width: 50%;
 }
 
 .list li a {
   display: block;
   width: max-content;
   align-self: stretch;
+  justify-content: center;
 }
 
 .list .fa-solid {
@@ -333,7 +383,8 @@ header nav a:hover {
   background-color: var(--sspBlue);
 }
 
-.list .fa-note-sticky:hover {
+.list .fa-note-sticky:hover,
+.list .fa-envelope:hover {
   background-color: orange;
   cursor: pointer;
 }

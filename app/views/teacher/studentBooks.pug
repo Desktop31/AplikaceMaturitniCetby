@@ -8,7 +8,14 @@ append vars
   - const title = "Seznam četby | Pepa"
 
 append content
-  ul
-    li Kniha 1
-    li Kniha 2
-    li Kniha 3
+  ul(class="tileMenu list") 
+    li(class="unread")
+          a(class="mainItem") 
+            div
+              i(class="fa-solid fa-book") &nbsp;
+              span Sus
+            div(class="bookAuthor")
+              i(class="fa-solid fa-user-pen")
+              span SS
+          a(href="" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+          a(class="fa-solid fa-note-sticky" title="s")
