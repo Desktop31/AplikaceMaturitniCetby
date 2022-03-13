@@ -9,7 +9,8 @@ append scripts
   script(src="/js/active.js") 
 
 append vars
-  - const title = "404 Stránka nenalezena"
+  - const title = "Stránka nenalezena"
+  - const pic = Math.floor(Math.random() * 3);
 
 block title
   title #{title}
@@ -17,3 +18,5 @@ block title
 block mainContainer 
   div(class="content")
     h1 #{title}
+    img(src="/media/notFound/" + pic + ".png", alt="Not Found" class="notfound")
+

@@ -12,8 +12,9 @@ append content
     h3(class="error") Došlo k chybě
   if (data)
     ul(class="tileMenu list") 
-      each book in data
+      each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
         li(class=book.state)
+          a #{book.order+1}
           a(class="mainItem") 
             div
               i(class="fa-solid fa-book") &nbsp;
@@ -22,7 +23,7 @@ append content
               i(class="fa-solid fa-user-pen")
               span #{book.firstName} #{book.lastName}
           a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-          a(class="fa-solid fa-note-sticky" title=book.teachersNote)
+          a(class="fa-solid fa-note-sticky" title="Poznámky")
           if book.state == "done"
             a(class="fa-solid fa-right-left" title="Požádat o výměnu")
           else 

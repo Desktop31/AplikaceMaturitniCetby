@@ -7,7 +7,7 @@
 
 ### Student:
   - poznámky u knihy z pohledu žáka
-  - systém pořadí knih
+  - [DONE] systém pořadí knih
   - změna pořadí knih
 
 ### Teacher:
@@ -28,3 +28,4 @@
   - o aplikaci
   - ?generátor PDF seznamu knih
   - ?light/dark mode switch
+  - ????? discord bot notifikace

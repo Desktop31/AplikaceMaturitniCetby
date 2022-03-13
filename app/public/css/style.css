@@ -414,7 +414,12 @@ header nav a:hover {
   cursor: pointer;
 }
 
+/* ======NOT FOUND====== */
 
+.notfound {
+  align-self: center;
+  max-width: 50%;
+}
 
 /* =================
       FOOTER

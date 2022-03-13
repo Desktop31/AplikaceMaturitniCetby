@@ -36,7 +36,8 @@ function getAllBooksOpt(id, callback) {
     + "(SELECT s.id_student id, b.id_book "
     + "FROM student s, book b, student_has_book shb "
     + "WHERE s.id_student = shb.student_id AND b.id_book = shb.book_id AND s.id_student = ?) sb "
-    + "ON bl.id_book = sb.id_book; "
+    + "ON bl.id_book = sb.id_book "
+    + "ORDER BY bl.lastName ASC, bl.firstName ASC; "
     pool.query(sql, [id], function (err, results) {
     if (err) {
       callback(err, null)
@@ -85,7 +86,8 @@ function getPersonalBooklist(id, callback) {
     + "(SELECT s.id_student id, b.id_book, shb.order, shb.state, shb.teachersNote "
     + "FROM student s, book b, student_has_book shb "
     + "WHERE s.id_student = shb.student_id AND b.id_book = shb.book_id AND s.id_student = ?) sb "
-    + "ON bl.id_book = sb.id_book; "
+    + "ON bl.id_book = sb.id_book "
+    + "ORDER BY bl.lastName ASC, bl.firstName ASC; "
     pool.query(sql, [id], function (err, results) {
     if (err) {
       callback(err, null)
