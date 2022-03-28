@@ -1,9 +1,12 @@
 ### Obecné:
-  - SQL injection ochrana (htmlspecialchars vstupy)
+  - [DONE] SQL injection ochrana (htmlspecialchars vstupy)
   - mysql dotazy
   - rozdělit knihy v seznamu podle kategorií
-  - pokud kniha done, změnit možnost odebrat na požádat o výměnu
+  - [DONE] pokud kniha done, změnit možnost odebrat na požádat o výměnu
   - [DONE] zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
+  - manuál
+  - dokumentace
+  - return u dbman funkcí
 
 ### Student:
   - poznámky u knihy z pohledu žáka
@@ -11,11 +14,18 @@
   - změna pořadí knih
 
 ### Teacher:
-  - seznam tříd
+  - [DONE] seznam tříd
   - seznam žáků ve třídě
   - seznam žáka z pohledu učitele
   - poznámky u knihy z pohledu učitele
   - uzamknout počet knih k testu
+
+### Admin:
+  - přidat do db
+  - login admina
+  - page admina
+  - přidat/odebrat/vypnout knihu
+  - ?přechod ročníků + propadlí, záloha předchozího ročníku
 
 ### Databáze:
   - [DONE] pořadí knihy (vyřeším pomocí data přidání)
@@ -24,8 +34,8 @@
 ---
 
 ### Níká priorita:
-  - manuál
   - o aplikaci
   - ?generátor PDF seznamu knih
-  - ?light/dark mode switch
+  - [DONE] ?light/dark mode switch
+  - ?statistiky (vyhledat žáky třídy X s dílem Y, ...)
   - ????? discord bot notifikace

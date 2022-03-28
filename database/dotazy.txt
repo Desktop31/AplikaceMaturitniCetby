@@ -50,3 +50,11 @@ FROM teacher t
 WHERE t.email = ?
 LIMIT 1;
 
+
+-- Seznam tříd učitele --
+SELECT id_class id, name, lockTime, lockCount FROM class
+WHERE teacher_id = ? ORDER BY name;
+
+-- Seznam žáků třídy --
+SELECT id_student id, firstName, lastName FROM student
+WHERE class_id = ? ORDER BY lastName ASC;

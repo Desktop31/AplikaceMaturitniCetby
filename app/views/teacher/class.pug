@@ -6,16 +6,13 @@ extends main.pug
     seznam žáků ve třídě
 
 append vars
-  - const title = "Třída X"
+  - const title = "Třída " + ""
 
 append content
-  ul(class="tileMenu list twocol")
-    li 
-      a(href="/teacher/studentBooks" class="mainItem ghover") Tomáš Krejčí
-      a(href="" class="fa-solid fa-envelope" title="Žádosti")
-    li 
-      a(href="/teacher/studentBooks" class="mainItem ghover") Sus
-      a(href="" class="fa-solid fa-envelope" title="Žádosti")
-    li 
-      a(href="/teacher/studentBooks" class="mainItem ghover") Amongus Enjoyer
-      a(href="" class="fa-solid fa-envelope" title="Žádosti")
+  unless (data) 
+    h3(class="error") Došlo k chybě
+  if (data)
+    ul(class="tileMenu list twocol") 
+      each st in data
+        li
+          a(href="/teacher/studentBooks/"+st.id class="mainItem ghover") #{st.firstName} #{st.lastName}

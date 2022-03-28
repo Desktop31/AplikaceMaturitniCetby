@@ -8,15 +8,18 @@ extends main.pug
 append vars
   - const title = "Moje třídy"
 
-append content 
-  ul(class="tileMenu list")
-    li 
-      a(href="/teacher/class" class="mainItem ghover") Třída 1
-      a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")
-    li 
-      a(href="/teacher/class" class="mainItem ghover") Třída 2
-      a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")
-    li 
-      a(href="/teacher/class" class="mainItem ghover") Třída 3 | Výběr uzamčen do 17.3.2022
-      a(href="" class="fa-solid fa-lock" title="Odemknout výběr")
-  
+append content
+  unless (data) 
+    h3(class="error") Došlo k chybě
+  if (data)
+    ul(class="tileMenu list") 
+      each schClass in data
+        li 
+          if schClass.lockTime 
+            - date = new Date(schClass.lockTime)
+            - lockFormat = "| Zamknuto do: " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + ", " + date.getHours() + ":" + date.getMinutes() + " | Počet děl: " + schClass.lockCount
+          a(href="/teacher/class/"+schClass.id+"?cname="+schClass.name class="mainItem ghover") #{schClass.name} #{lockFormat}
+          if schClass.lockTime
+            a(href="" class="fa-solid fa-lock" title="Odemknout výběr")
+          else 
+            a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")

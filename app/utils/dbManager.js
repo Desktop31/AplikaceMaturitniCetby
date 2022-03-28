@@ -10,7 +10,6 @@ const pool = mysql.createPool({ // pool se sám postará o výpadky/znovu připo
 })
 
 
-
 function getAllBooks(callback) {
   sql = "SELECT b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName "
    + "FROM book b, author a, book_has_author bha "
@@ -97,4 +96,36 @@ function getPersonalBooklist(id, callback) {
   })
 }
 
-module.exports = {getAllBooks, getAllBooksOpt, getStudent, getTeacher, getPersonalBooklist}
+function getClasslist(id, callback) {
+  sql = "SELECT id_class id, name, lockTime, lockCount FROM class "
+    + "WHERE teacher_id = ? ORDER BY name; "
+    pool.query(sql, [id], function (err, results) {
+    if (err) {
+      callback(err, null)
+    } else {
+      callback(null, results)
+    }
+  })
+}
+
+function getClassStudents(id, callback) {
+  sql = "SELECT id_student id, firstName, lastName FROM student "
+    + "WHERE class_id = ? ORDER BY lastName ASC; "
+    pool.query(sql, [id], function (err, results) {
+    if (err) {
+      callback(err, null)
+    } else {
+      callback(null, results)
+    }
+  })
+}
+
+module.exports = {
+  getAllBooks, 
+  getAllBooksOpt, 
+  getStudent, 
+  getTeacher, 
+  getPersonalBooklist,
+  getClasslist,
+  getClassStudents
+}
