@@ -7,14 +7,14 @@ ORDER BY a.lastName ASC, a.firstName ASC;
 
 
 -- Seznam děl + jestli je student má v seznamu
-SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, sb.id
+SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, sb.id_student, bl.id_book
 FROM 
 (SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
 FROM book b, author a, book_has_author bha
 WHERE bha.book_id = b.id_book AND bha.author_id = a.id_author
 ORDER BY a.lastName ASC, a.firstName ASC) bl 
 LEFT JOIN 
-(SELECT s.id_student id, b.id_book
+(SELECT s.id_student, b.id_book
 FROM student s, book b, student_has_book shb
 WHERE s.id_student = shb.student_id AND b.id_book = shb.book_id AND s.id_student = ?) sb
 ON bl.id_book = sb.id_book
@@ -22,7 +22,7 @@ ORDER BY bl.lastName ASC, bl.firstName ASC;
 
 
 -- Seznam děl studenta --
-SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, sb.order, sb.state, sb.teachersNote 
+SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, bl.id_book, sb.order, sb.state, sb.teachersNote 
 FROM 
 (SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
 FROM book b, author a, book_has_author bha 
@@ -39,13 +39,13 @@ ORDER BY bl.lastName ASC, bl.firstName ASC;
 -- == Login ==
 
 -- Najdi údaje studenta --
-SELECT s.id_student, s.firstName, s.lastName, s.email, s.password
+SELECT s.id_student id, s.class_id, s.firstName, s.lastName, s.email, s.password
 FROM student s
 WHERE s.email = ?
 LIMIT 1;
 
 -- Najdi údaje učitele --
-SELECT t.id_teacher, t.firstName, t.lastName, t.email, t.password
+SELECT t.id_teacher id, t.firstName, t.lastName, t.email, t.password
 FROM teacher t
 WHERE t.email = ?
 LIMIT 1;
@@ -55,6 +55,79 @@ LIMIT 1;
 SELECT id_class id, name, lockTime, lockCount FROM class
 WHERE teacher_id = ? ORDER BY name;
 
+-- Podrobnosti třídy --
+SELECT id_class, name, teacher_id, lockTime, lockCount FROM class 
+WHERE id_class = ? LIMIT 1;
+
+-- Podrobnosti studenta --
+SELECT c.id_class cid, c.name cname, c.teacher_id, st.id_student, st.firstName, st.lastName
+FROM class c, student st
+WHERE c.id_class = st.class_id AND st.id_student = 1 LIMIT 1;
+
 -- Seznam žáků třídy --
 SELECT id_student id, firstName, lastName FROM student
 WHERE class_id = ? ORDER BY lastName ASC;
+
+-- Seznam žádostí o odebrání knihy [teacher_id] --
+SELECT snb.id_student, snb.firstName, snb.lastName, snb.id_book, snb.name as cname, b.name as bname FROM book b RIGHT JOIN 
+(SELECT sn.id_student, sn.firstName, sn.lastName, sn.name, r.id_book, r.date FROM remove_request r JOIN 
+(SELECT st.id_student, st.firstName, st.lastName, c.name FROM student st LEFT JOIN class c 
+ON st.class_id = c.id_class LEFT JOIN teacher t ON t.id_teacher = c.teacher_id 
+WHERE t.id_teacher = ?) as sn ON sn.id_student = r.id_student) as snb ON b.id_book = snb.id_book 
+ORDER BY snb.date DESC; 
+
+-- Počet žádostí o odebrání knihy [teacher_id] --
+SELECT COUNT(st.id_student) as reqCount FROM remove_request rr LEFT JOIN student st 
+ON st.id_student = rr.id_student LEFT JOIN class c ON st.class_id = c.id_class 
+LEFT JOIN teacher t ON t.id_teacher = c.teacher_id WHERE t.id_teacher = ?;
+
+
+-- Auto odstranění času: ?1 = unlock time, ?2 = count, ?3 = id_class ?4 = UNLOCK+id_class, ?5 = unlock time, ?6 = id_class --
+UPDATE class SET lockTime = ?, lockCount = ? WHERE id_class = ?; 
+CREATE EVENT IF NOT EXISTS ? ON SCHEDULE AT ?
+DO UPDATE class SET lockTime = NULL
+WHERE class.id_class = ?;
+
+-- Odstranění eventu (odemknutí výběru): ?1 = UNLOCK+id_class, ?2 = id_class --
+DROP EVENT IF EXISTS ?;
+UPDATE class SET lockTime = NULL 
+WHERE class.id_class = 
+
+-- Přidání knihy [student_id, book_id, student_id] --
+INSERT INTO student_has_book (`student_id`, `book_id`, `order`) 
+VALUES (?, ?, (SELECT COUNT(shb.student_id) FROM student_has_book shb WHERE shb.student_id = ?));
+
+-- Odebrání knihy [student_id, book_id] --
+DELETE FROM student_has_book WHERE student_id = ? AND book_id = ?; 
+
+-- Žádost o odebrání - kontrola [student_id, book_id, class_id] --
+SELECT c.lockTime FROM class c, student_has_book shb
+WHERE shb.student_id = ? AND shb.book_id = ? AND shb.state = 'done' AND c.id_class = ?;
+
+-- Žádost o odebrání [id_student, id_book] --
+REPLACE INTO remove_request (`id_student`, `id_book`) VALUES (?, ?);
+
+-- Žádost - kontrola knihy a učitele [id_student, id_book] --
+SELECT rr.id_book, c.teacher_id FROM remove_request rr LEFT JOIN student st 
+ON st.id_student = rr.id_student LEFT JOIN class c ON st.class_id = c.id_class 
+LEFT JOIN teacher t ON t.id_teacher = c.teacher_id WHERE st.id_student = ? AND rr.id_book = ?; 
+
+-- Potvrzení žádosti [id_student, id_book] --
+DELETE rr, shb FROM remove_request rr JOIN student_has_book shb 
+ON rr.id_student = shb.student_id AND rr.id_book = shb.book_id WHERE rr.id_student = ? AND rr.id_book = ?;
+
+-- Zamítnutí žádosti [id_student, id_book] --
+DELETE FROM remove_request WHERE id_student = ? AND id_book = ?;
+
+-- Změna stavu knihy [state, order, studentId, bookId] --
+UPDATE student_has_book SET state = ?, `order` = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ? AND state != "done";
+
+-- Kontrola jestli učitel má studenta a student knihu [student_id, book_id] --
+SELECT c.teacher_id FROM student_has_book shb LEFT JOIN student st 
+ON st.id_student = shb.student_id LEFT JOIN class c ON st.class_id = c.id_class 
+LEFT JOIN teacher t ON t.id_teacher = c.teacher_id WHERE st.id_student = ? AND shb.book_id = ?;
+
+-- Změna stavu a poznámky učitelem [done, note, student_id, book_id] --
+UPDATE student_has_book SET state = \"done\", teachersNote = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ?;
+-- Odebrání done stavu
+UPDATE student_has_book SET state = \"unread\", teachersNote = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ?;

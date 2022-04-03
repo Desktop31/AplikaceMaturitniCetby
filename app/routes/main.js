@@ -8,7 +8,12 @@ const router = express.Router()
 // - GET -
 
 router.get("/", function(req, res) {
-  res.render("index")
+  if (req.session.role == "teacher") {
+    dbman.checkRemoveRequests(req.session.userid, function(err, data){
+      res.render("index", { data: data[0]})
+    })
+  }
+  else res.render("index")
 })
 
 router.get("/login", function(req, res) {
@@ -23,9 +28,17 @@ router.get("/logout", function(req, res) {
 
 router.get("/booklist", function(req, res) {
   if (req.session.role == "student") {
-    dbman.getAllBooksOpt(req.session.userid, function(err, data){
-      res.render("availableBooklist", { data})
-    })
+    if (req.session.classid == null) { // student nemá třídu
+      dbman.getPersonalBooklist(req.session.userid, function(err, data){
+        res.render("student/bookList", { data})
+      })
+    } else {
+      dbman.getClassDetails(req.session.classid, function(err, details) {
+        dbman.getAllBooksOpt(req.session.userid, function(err, data){
+          res.render("availableBooklist", { data, details: details[0]})
+        })
+      })
+    }
   }
   else {
     dbman.getAllBooks(function(err, data){
@@ -54,6 +67,7 @@ router.post("/login", function(req, res) {
       try {
         if (await bcrypt.compare(req.body.password, data[0].password)) { // kontrola hesla
           req.session.userid = data[0].id
+          req.session.classid = data[0].class_id
           req.session.email = data[0].email
           req.session.firstName = data[0].firstName
           req.session.lastName = data[0].lastName

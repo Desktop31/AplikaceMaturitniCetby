@@ -32,7 +32,7 @@ block mainContainer
         li 
           a(href="/teacher/requests") 
             i(class="fa-solid fa-envelopes-bulk")  &nbsp;
-            | Žádosti
+            | Žádosti !{"(" + data.reqCount + ")"}
       li 
         a(href="/booklist") 
           i(class="fa-solid fa-book")  &nbsp;
@@ -42,6 +42,7 @@ block mainContainer
         a(href="/") 
           i(class="fa-solid fa-book-open-reader")  &nbsp;
           | Manuál 
+    //-
       li 
         //- LINK
         a(href="/") 

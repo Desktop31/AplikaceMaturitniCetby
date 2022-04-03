@@ -5,6 +5,9 @@ extends main.pug
     hlavní stránka učitele
     seznam tříd
 
+append scripts 
+  script(src="/js/locking.js") 
+
 append vars
   - const title = "Moje třídy"
 
@@ -17,9 +20,11 @@ append content
         li 
           if schClass.lockTime 
             - date = new Date(schClass.lockTime)
-            - lockFormat = "| Zamknuto do: " + date.getDate() + "." + date.getMonth() + "." + date.getFullYear() + ", " + date.getHours() + ":" + date.getMinutes() + " | Počet děl: " + schClass.lockCount
-          a(href="/teacher/class/"+schClass.id+"?cname="+schClass.name class="mainItem ghover") #{schClass.name} #{lockFormat}
-          if schClass.lockTime
-            a(href="" class="fa-solid fa-lock" title="Odemknout výběr")
+            - lockFormat = " | Zamknuto do " + date.toLocaleString("cs-CZ", {timeZone: "CET"}) + " | Počet děl: " + schClass.lockCount
           else 
-            a(href="" class="fa-solid fa-lock-open" title="Uzamknout výběr")
+            - lockFormat = null
+          a(href="/teacher/class/"+schClass.id class="mainItem ghover") #{schClass.name} #{lockFormat}
+          if schClass.lockTime
+            a(class="fa-solid fa-lock" title="Odemknout výběr" onclick="unlock(\""+schClass.id+"\", \""+schClass.name+"\")")
+          else 
+            a(class="fa-solid fa-lock-open" title="Uzamknout výběr" onclick="lock(\""+schClass.id+"\", \""+schClass.name+"\")")

@@ -5,14 +5,29 @@ extends main.pug
     stránka třídy
     seznam žáků ve třídě
 
+append scripts 
+  script(src="/js/locking.js") 
+
 append vars
-  - const title = "Třída " + ""
+  - const title = "Třída " + details.name
 
 append content
+  ul(class="tileMenu list")
+    li
+      if details.lockTime
+        - date = new Date(details.lockTime)
+        - lockMsg = "Výběr uzamčen do <strong>" + date.toLocaleString("cs-CZ", {timeZone: "CET"}) + "</strong> na počet děl: <strong>" + details.lockCount + "</strong>"
+        a(class="mainItem") !{lockMsg}
+        a(class="fa-solid fa-lock" title="Odemknout výběr" onclick="unlock(\""+details.id_class+"\", \""+details.name+"\")")
+      else 
+        - lockMsg = "Výběr děl odemčen"
+        a(class="mainItem") !{lockMsg}
+        a(class="fa-solid fa-lock-open" title="Uzamknout výběr" onclick="lock(\""+details.id_class+"\", \""+details.name+"\")")
+  //-h1 Žáci:
   unless (data) 
     h3(class="error") Došlo k chybě
   if (data)
     ul(class="tileMenu list twocol") 
       each st in data
         li
-          a(href="/teacher/studentBooks/"+st.id class="mainItem ghover") #{st.firstName} #{st.lastName}
+          a(href="/teacher/student/"+st.id class="mainItem ghover") #{st.firstName} #{st.lastName}

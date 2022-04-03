@@ -7,28 +7,53 @@ extends layout.pug
 append vars
   - const title = "Seznam děl"
 
+append scripts 
+  script(src="/js/removeRequest.js")  
+
 block title
   title #{title}
 
 block mainContainer 
   div(class="content")
     h1 #{title}
+    if details && details.lockTime
+      div(class="alert")
+        div(class="fa-solid fa-circle-exclamation")
+        - date = new Date(details.lockTime)
+        - lockFormat = date.toLocaleString("cs-CZ", {timeZone: "CET"})
+        div
+          span Výběr děl pro vaši třídu je uzamčen do: 
+            strong #{lockFormat} <br>
+            | Počet děl na testu: 
+            strong #{details.lockCount}
     unless (data) 
       h3(class="error") Došlo k chybě
     if (data)
       ul(class="tileMenu list") 
         each book in data
-          li 
-            a(class="mainItem") 
-              div
-                i(class="fa-solid fa-book") &nbsp;
-                span #{book.name}
-              div(class="bookAuthor")
-                i(class="fa-solid fa-user-pen")
-                span #{book.firstName} #{book.lastName}
-            a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-            if session.role == "student"
-              if book.id
-                a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")
-              else
-                a(class="fa-solid fa-plus" title="Přidat do mého seznamu")
+          if (book.active === "yes")
+            if book.id_student
+              - redir = "/student/remove"
+            else 
+              - redir = "/student/add"
+            form(action=redir method="post" class="liform") 
+              li 
+                a(class="mainItem") 
+                  div
+                    i(class="fa-solid fa-book") &nbsp;
+                    span #{book.name}
+                  div(class="bookAuthor")
+                    i(class="fa-solid fa-user-pen")
+                    span #{book.firstName} #{book.lastName}
+                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+                if session.role == "student"
+                  unless details.lockTime
+                    input(type="hidden", name="bookId" value=book.id_book)
+                    if book.id_student
+                      if book.state == "done"
+                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                      else 
+                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
+                    else
+                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+                  

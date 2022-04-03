@@ -7,24 +7,49 @@ extends main.pug
 append vars
   - const title = "Můj seznam četby"
 
+append scripts 
+  script(src="/js/removeRequest.js") 
+  script(src="/js/notes.js") 
+
+prepend content
+  unless details 
+    div(class="alert")
+        div(class="fa-solid fa-circle-exclamation")
+        div
+          span Zatím nepatříte k žádné třídě! 
+          span Požádejte svého učitele o potvrzení žádosti.
+  if details && details.lockTime
+      div(class="alert")
+        - date = new Date(details.lockTime)
+        - lockFormat = date.toLocaleString("cs-CZ", {timeZone: "CET"})
+        div(class="fa-solid fa-circle-exclamation")
+        div
+          span Výběr děl pro vaši třídu je uzamčen do: 
+            strong #{lockFormat} <br>
+            | Počet děl na testu: 
+            strong #{details.lockCount}
+
 append content 
   unless (data) 
     h3(class="error") Došlo k chybě
   if (data)
     ul(class="tileMenu list") 
       each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
-        li(class=book.state)
-          a #{book.order+1}
-          a(class="mainItem") 
-            div
-              i(class="fa-solid fa-book") &nbsp;
-              span #{book.name}
-            div(class="bookAuthor")
-              i(class="fa-solid fa-user-pen")
-              span #{book.firstName} #{book.lastName}
-          a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-          a(class="fa-solid fa-note-sticky" title="Poznámky")
-          if book.state == "done"
-            a(class="fa-solid fa-right-left" title="Požádat o výměnu")
-          else 
-            a(class="fa-solid fa-minus" title="Odebrat z mého seznamu")
+        form(action="/student/remove" method="post" class="liform") 
+          li(class=book.state)
+            a #{book.order}
+            a(href=book.link target="_blank" class="mainItem") 
+              div
+                i(class="fa-solid fa-book") &nbsp;
+                span #{book.name}
+              div(class="bookAuthor")
+                i(class="fa-solid fa-user-pen")
+                span #{book.firstName} #{book.lastName}
+            a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe hideNoFit")
+            a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesStudent(\""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+book.order+"\" , \""+encodeURI(book.teachersNote)+"\")")
+            unless details && details.lockTime
+              input(type="hidden", name="bookId" value=book.id_book)
+              if book.state == "done"
+                button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+              else 
+                button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")

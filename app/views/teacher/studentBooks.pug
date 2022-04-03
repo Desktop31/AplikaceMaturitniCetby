@@ -4,18 +4,26 @@ extends main.pug
   zde: 
     seznam knih studenta z pohledu učitele
 
+append scripts 
+  script(src="/js/notes.js") 
+
 append vars
-  - const title = "Seznam četby | Pepa"
+  - const title = details.cname + " | " + details.firstName + " " + details.lastName
 
 append content
-  ul(class="tileMenu list") 
-    li(class="unread")
+  unless (data) 
+    h3(class="error") Došlo k chybě
+  if (data)
+    ul(class="tileMenu list") 
+      each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
+        li(class=book.state)
+          a #{book.order}
           a(class="mainItem") 
             div
               i(class="fa-solid fa-book") &nbsp;
-              span Sus
+              span #{book.name}
             div(class="bookAuthor")
               i(class="fa-solid fa-user-pen")
-              span SS
-          a(href="" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-          a(class="fa-solid fa-note-sticky" title="s")
+              span #{book.firstName} #{book.lastName}
+          a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+          a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesTeacher(\""+details.id_student+"\", \""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+encodeURI(book.teachersNote)+"\")")

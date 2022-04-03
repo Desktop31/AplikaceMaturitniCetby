@@ -15,6 +15,12 @@ block title
 
 block mainContainer
   div(class="content")
+    if errorMsg
+      div(class="alert")
+        div(class="fa-solid fa-triangle-exclamation error")
+        h3(class="error") #{errorMsg}
+
+
     div(class="login")
       form(action="/login", method="post")
         h1 #{title}
@@ -24,7 +30,6 @@ block mainContainer
           label(for="password")  Heslo 
           input(type="password", name="password", id="password", placeholder="••••••••")
           input(type="submit" value="Přihlásit")
-      h3(class="error") #{errorMsg}
 
 append code 
   script.

@@ -1,5 +1,5 @@
 -- === ADMIN ÚČET ===
-CREATE USER 'cetbaAdmin'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER IF NOT EXISTS 'cetbaAdmin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON `maturitni\_cetba`.* TO 'cetbaAdmin'@'localhost';
 
 
@@ -21,6 +21,12 @@ VALUES ("Arthur Conan", "Doyle");
 INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Antoine de", "Saint-Exupéry");
 
+INSERT INTO author (`firstName`, `lastName`)
+VALUES ("Jan", "Werich");
+
+INSERT INTO author (`firstName`, `lastName`)
+VALUES ("Jiří", "Voskovec");
+
 
 -- === KNIHY ===
 
@@ -39,17 +45,23 @@ VALUES ("Pes Baskervillský", "20./21.", "svet", "https://www.databazeknih.cz/kn
 INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Malý princ", "20./21.", "svet", "https://www.databazeknih.cz/knihy/maly-princ-606");
 
+INSERT INTO book (`name`, `century`, `category`, `link`)
+VALUES ("Balada z hadrů", "20./21.", "cz", "https://www.databazeknih.cz/knihy/balada-z-hadru-98652");
+
 
 -- === KNIHY AUTOŘI ===
 
 INSERT INTO book_has_author (`book_id`, `author_id`)
 VALUES ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5");
 
+INSERT INTO book_has_author (`book_id`, `author_id`)
+VALUES ("6", "6"), ("6", "7");
+
 -- === UČITELÉ ===
 
 -- HESLO: helenadavidova --
 INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
-VALUES ("Helena", "Davidová", "helena.davidova@purkynka.cz", "$2a$10$t2fMEi23kLYh2Oi.yb0nI.HP/te0vpz2O.ca3W8kZ5rV0.aVqMB5W");
+VALUES ("Jana", "Susová", "jana.susova@purkynka.cz", "$2a$10$fefsAZkc5GMu0CeIo6rNSui4DEHD8khl9y2hvZ74XKJ513r084Yzm");
 
 -- HESLO: petrnovak --
 INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
@@ -77,7 +89,7 @@ VALUES ("Tomáš", "Krejčí", "krejci.tomas@purkynka.cz", "$2a$10$VVa/HJv0FMcoC
 
 -- HESLO: zdenekborovec --
 INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
-VALUES ("Zdeněk", "Borovec", "borovec.zdenek@purkynka.cz", "$2a$10$XDvp5nMwBYhqWejuK3Kc/e1rqye0ZxP/MIzBaEUfzhsAFZ6zFk4x2", "1");
+VALUES ("Martin", "Polák", "polak.martin@purkynka.cz", "$2a$10$gEnfQkMkIlvItX8CKmAiFO3W/bWJhP.CmFujOtxQYt5IYaYaLjWnK", "1");
 
 -- HESLO: vitrosicky --
 INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
@@ -89,9 +101,9 @@ VALUES ("Vít", "Rosický", "rosicky.vit@purkynka.cz", "$2a$10$VwvYEfy28s4lzJoCH
 -- tomas krejci --
 
 INSERT INTO student_has_book (`student_id`, `book_id`, `order`, `state`)
-VALUES ("1", "1", "0", "unread"), ("1", "2", "1", "read"), ("1", "3", "2", "done");
+VALUES ("1", "1", "1", "unread"), ("1", "2", "2", "read"), ("1", "3", "3", "done");
 
 -- zdenek borovec --
 
 INSERT INTO student_has_book (`student_id`, `book_id`, `order`)
-VALUES ("2", "4", "0"), ("2", "1", "1");
+VALUES ("2", "4", "1"), ("2", "1", "2");

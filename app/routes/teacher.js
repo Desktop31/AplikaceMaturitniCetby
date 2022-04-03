@@ -2,6 +2,8 @@ const utils = require("../utils/functions.js")
 const dbman = require("../utils/dbManager.js")
 
 const express = require("express")
+const session = require("express-session")
+const { redirect } = require("express/lib/response")
 const router = express.Router()
 
 router.get("/", utils.checkTeacher, function(req, res){
@@ -11,21 +13,79 @@ router.get("/", utils.checkTeacher, function(req, res){
 })
 
 router.get("/class/:classId", utils.checkTeacher, function(req, res){
-  //var className = req.query.cName
-  //console.log(classId) toto dela bordel
-  dbman.getClassStudents(1, function(err, data){
-    //console.log(data)
-    //console.log(className)
-    res.render("teacher/class", { data})
+  dbman.getClassDetails(req.params.classId, function(err, details) {
+    if(details.length == 0) {res.redirect("/"); return}
+    if(details[0].teacher_id != req.session.userid) {res.redirect("/"); return}
+
+    dbman.getClassStudents(req.params.classId, function(err, data){
+      res.render("teacher/class", { data, details: details[0]})
+    })
   })
 })
 
-router.get("/studentBooks", utils.checkTeacher, function(req, res){
-  res.render("teacher/studentBooks")
+router.get("/student/:stId", utils.checkTeacher, function(req, res){
+  dbman.getStudentDetails(req.params.stId, function(err, details) {
+    if(details.length == 0) {res.redirect("/"); return}
+    if(details[0].teacher_id != req.session.userid) {res.redirect("/"); return}
+    dbman.getPersonalBooklist(req.params.stId, function(err, data){
+      res.render("teacher/studentBooks", { data, details: details[0]})
+    })
+  })
 })
 
 router.get("/requests", utils.checkTeacher, function(req, res){
-  res.render("teacher/requests")
+  dbman.getRemoveRequests(req.session.userid, function(err, data){
+    res.render("teacher/requests", { data})
+  })
+})
+
+/* -- POST -- */
+
+router.post("/locking", utils.checkTeacher, function(req, res){
+  cid = parseInt(req.body.classId)
+  dbman.getClassDetails(cid, function(err, details) {
+    if(details.length == 0) {res.redirect(req.headers.referer); return}
+    if(details[0].teacher_id != req.session.userid) {res.redirect(req.headers.referer); return}
+
+    if (req.body.unlockDate) { // uzamceni
+      time = req.body.unlockDate.replace("T", " ");
+      dbman.scheduleUnlock(cid, time, req.body.count, function(err, data){
+        res.redirect(req.headers.referer)
+        return
+      })
+    } else { // odemceni
+      dbman.unlock(cid, function(err, data){
+        res.redirect(req.headers.referer)
+        return
+      })
+    }
+  })
+})
+
+router.post("/accept", utils.checkTeacher, function(req, res){
+  if (req.body.bookId != null && req.body.studentId != null) {
+    dbman.acceptRemRequest(req.body.studentId, req.body.bookId, req.session.userid, function(err, data){
+      res.redirect(req.headers.referer)
+    })
+  } else res.redirect(req.headers.referer)
+})
+
+router.post("/deny", utils.checkTeacher, function(req, res){
+  if (req.body.bookId != null && req.body.studentId != null) {
+    dbman.denyRemRequest(req.body.studentId, req.body.bookId, req.session.userid, function(err, data){
+      res.redirect(req.headers.referer)
+    })
+  } else res.redirect(req.headers.referer)
+})
+
+router.post("/updateNotes", utils.checkTeacher, function(req, res){
+  done = false
+  if (req.body.done == "done") done = true
+  if (req.body.bookId != null) {
+    dbman.updateStateTeacher(req.session.userid, req.body.studentId, req.body.bookId, done, req.body.note, function(err, data){
+      res.redirect(req.headers.referer)
+    })
+  } else res.redirect(req.headers.referer)
 })
 
 router.use("*", function(error, req, res, next){
