@@ -24,6 +24,7 @@ append content
         a(class="mainItem") !{lockMsg}
         a(class="fa-solid fa-lock-open" title="Uzamknout výběr" onclick="lock(\""+details.id_class+"\", \""+details.name+"\")")
   //-h1 Žáci:
+  hr(class="blueSep")
   unless (data) 
     h3(class="error") Došlo k chybě
   if (data)

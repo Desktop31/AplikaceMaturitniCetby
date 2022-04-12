@@ -16,6 +16,7 @@ block title
 block mainContainer 
   div(class="content")
     h1 #{title}
+    hr(class="blueSep")
     if details && details.lockTime
       div(class="alert")
         div(class="fa-solid fa-circle-exclamation")
@@ -47,7 +48,7 @@ block mainContainer
                     span #{book.firstName} #{book.lastName}
                 a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
                 if session.role == "student"
-                  unless details.lockTime
+                  unless details && details.lockTime
                     input(type="hidden", name="bookId" value=book.id_book)
                     if book.id_student
                       if book.state == "done"

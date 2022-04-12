@@ -95,7 +95,10 @@ WHERE class.id_class =
 
 -- Přidání knihy [student_id, book_id, student_id] --
 INSERT INTO student_has_book (`student_id`, `book_id`, `order`) 
-VALUES (?, ?, (SELECT COUNT(shb.student_id) FROM student_has_book shb WHERE shb.student_id = ?));
+VALUES (?, ?, (SELECT COUNT(shb.order) FROM student_has_book shb WHERE shb.student_id = ?)+1);
+
+-- Kontrola počtu knih [stId] --
+SELECT COUNT(book_id) num FROM student_has_book WHERE student_id = ?;
 
 -- Odebrání knihy [student_id, book_id] --
 DELETE FROM student_has_book WHERE student_id = ? AND book_id = ?; 
@@ -127,7 +130,38 @@ SELECT c.teacher_id FROM student_has_book shb LEFT JOIN student st
 ON st.id_student = shb.student_id LEFT JOIN class c ON st.class_id = c.id_class 
 LEFT JOIN teacher t ON t.id_teacher = c.teacher_id WHERE st.id_student = ? AND shb.book_id = ?;
 
--- Změna stavu a poznámky učitelem [done, note, student_id, book_id] --
-UPDATE student_has_book SET state = \"done\", teachersNote = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ?;
--- Odebrání done stavu
-UPDATE student_has_book SET state = \"unread\", teachersNote = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ?;
+-- Změna stavu a poznámky učitelem [state, note, student_id, book_id] --
+UPDATE student_has_book SET state = ?, teachersNote = ? WHERE student_has_book.student_id = ? AND student_has_book.book_id = ?; 
+
+
+-- Kontra emailu při registraci [email] --
+SELECT email FROM student WHERE email = ?;
+
+-- Vytvoření registračního tokenu [email, token] --
+REPLACE INTO registration (`email`, `token`, `expiration`) VALUES (?, ?, TIMESTAMP(CURRENT_TIMESTAMP, "00:15:00"));
+
+-- Email podle tokenu + kontrola expirace [token] --
+SELECT email FROM registration WHERE token = ? AND expiration > CURRENT_TIMESTAMP;
+
+-- Smazání tokenu [token] --
+DELETE FROM registration WHERE token = ?;
+
+-- Kontrola třídy [className] --
+SELECT c.id_class, c.teacher_id, t.email FROM class c LEFT JOIN teacher t 
+ON c.teacher_id = t.id_teacher WHERE c.name = ?;
+
+-- Vytvoření účtu [firstName, lastName, email, passwHash]
+INSERT INTO student (`firstName`, `lastName`, `email`, `password`) VALUES (?, ?, ?, ?);
+
+
+-- Vytvoření potvrzujícího tokenu [token, stId, idClass] --
+REPLACE INTO class_confirm (`token`, `id_student`, `id_class`) VALUES (?, ?, ?);
+
+-- Získání třídy a studenta z tokenu [token]
+SELECT id_student, id_class FROM class_confirm WHERE token = ?;
+
+-- Smazání potvrzujícího tokenu [token] --
+DELETE FROM class_confirm WHERE token = ?;
+
+-- Přiřazení třídy [idClass, stId] --
+UPDATE student SET class_id = ? WHERE id_student = ? AND class_id IS NULL;

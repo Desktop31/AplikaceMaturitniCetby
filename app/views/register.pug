@@ -1,0 +1,31 @@
+extends layout.pug
+
+append vars
+  - const title = "Registrace"
+
+block title 
+  title #{title}
+
+
+block mainContainer
+  div(class="content")
+    if msgType
+      div(class="alert")
+        if msgType == "error"
+          div(class="fa-solid fa-triangle-exclamation error")
+        else if msgType == "success"
+          div(class="fa-solid fa-circle-check success")
+        h3(class=msgType) #{msg}
+
+    div(class="login")
+      unless msgType && msgType == "success"
+        form(action="/register", method="post")
+          h1 #{title}
+          hr(class="blueSep")
+          div(class="inputField") 
+            p(class="gray") Na email Vám bude odeslán registrační odkaz.
+            br
+            label(for="email")  Zadejte školní email 
+            input(type="email", name="email", id="email", placeholder="vase.jmeno@purkynka.cz", value=email)
+            input(type="submit" value="Potvrdit")
+      a(href="login" class="green") Zpět na <strong>přihlášení</strong>

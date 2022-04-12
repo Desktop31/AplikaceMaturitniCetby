@@ -5,7 +5,7 @@
   - [DONE] zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
   - rozdělit knihy v seznamu podle kategorií
   - zobrazení víc autorů u knihy
-  - registrace
+  - [DONE] registrace
   - manuál
   - dokumentace
 
@@ -15,6 +15,7 @@
   - [DONE] žádost o odebrání
   - [DONE] poznámky u knihy z pohledu žáka
   - [DONE] změna pořadí knih
+  - [DONE] kontrola limitu 20 knih
 
 ### Teacher:
   - [DONE] seznam tříd
@@ -23,6 +24,7 @@
   - [DONE] uzamknout počet knih k testu
   - [DONE] žádosti o odebrání
   - [DONE] poznámky u knihy z pohledu učitele
+  - [DONE] stav knihy při změně poznámky/zrušení done
 
 ### Databáze:
   - [DONE] pořadí knihy (vyřeším pomocí data přidání)
@@ -38,13 +40,15 @@
   - admin vypíná knihy zatím z databáze
   - přidání učitele: udělá administrátor, zatím z databáze
   - přidání studenta: 
-    - student klikne na registraci
-    - zadá email (+ kontrola jestli už není v db)
-    - obdrží email s linkem na potvrzení
-    - link otevře stránku se zvolením jména, příjmení, hesla, třídy a emailu učitele (třída a učitel - kontrola databází)
-    - vytvoří se účet studenta bez třídy (už může vybírat knihy)
-    - učitel obdrží email s žádostí o vstup studenta do třídy
-    - učitel potvrdí žádost, studentovi je přiřazena třída
+    - [DONE] student klikne na registraci
+    - [DONE] zadá email (+ kontrola jestli už není v db)
+    - [DONE] obdrží email s linkem na potvrzení
+    - [DONE] link otevře stránku se zvolením jména, příjmení, hesla a třídy
+      (třída - kontrola databází)
+    - [DONE] vytvoří se účet studenta bez třídy (už může vybírat knihy)
+    - [DONE] smazání tokenu po potvrzení
+    - [DONE] učitel obdrží email s žádostí o vstup studenta do třídy
+    - [DONE] učitel potvrdí žádost, studentovi je přiřazena třída
   
 
 ---

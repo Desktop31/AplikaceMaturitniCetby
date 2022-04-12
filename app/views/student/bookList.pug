@@ -10,14 +10,25 @@ append vars
 append scripts 
   script(src="/js/removeRequest.js") 
   script(src="/js/notes.js") 
+  script(src="/js/classRequest.js") 
 
 prepend content
+  if msgType
+    div(class="alert")
+      if msgType == "error"
+        div(class="fa-solid fa-triangle-exclamation error")
+      else if msgType == "success"
+        div(class="fa-solid fa-circle-check success")
+      h3(class=msgType) #{msg}
+  
   unless details 
     div(class="alert")
         div(class="fa-solid fa-circle-exclamation")
         div
           span Zatím nepatříte k žádné třídě! 
-          span Požádejte svého učitele o potvrzení žádosti.
+          span Požádejte svého učitele o potvrzení žádosti. 
+          span(class="link" onclick="classRequest()") Požádat znovu
+  
   if details && details.lockTime
       div(class="alert")
         - date = new Date(details.lockTime)

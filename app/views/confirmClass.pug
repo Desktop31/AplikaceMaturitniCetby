@@ -1,0 +1,17 @@
+extends layout.pug
+
+append vars
+  - const title = "Přiřazení třídy"
+
+block title 
+  title #{title}
+
+block mainContainer
+  div(class="content")
+    if msgType
+      div(class="alert")
+        if msgType == "error"
+          div(class="fa-solid fa-triangle-exclamation error")
+        else if msgType == "success"
+          div(class="fa-solid fa-circle-check success")
+        h3(class=msgType) #{msg}

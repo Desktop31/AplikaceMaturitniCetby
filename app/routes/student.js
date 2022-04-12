@@ -7,11 +7,22 @@ const router = express.Router()
 router.get("/", utils.checkStudent, function(req, res){
   if (req.session.classid == null) { // student nemá třídu
     dbman.getPersonalBooklist(req.session.userid, function(err, data){
+      if (err) {res.redirect("/"); return}
+      switch (req.query.alert) {
+        case "1":
+          res.render("student/bookList", { data, msgType: "success", msg: "Email úspěšně odeslán!"})
+          return
+        case "2":
+          res.render("student/bookList", { data, msgType: "error", msg: "Zadaná třída neexistuje!"})
+          return
+      }
       res.render("student/bookList", { data})
     })
   } else {
     dbman.getClassDetails(req.session.classid, function(err, details) {
+      if (err) {res.redirect("/"); return}
       dbman.getPersonalBooklist(req.session.userid, function(err, data){
+        if (err) {res.redirect("/"); return}
         res.render("student/bookList", { data, details: details[0]})
       })
     })
@@ -24,6 +35,7 @@ router.get("/", utils.checkStudent, function(req, res){
 router.post("/add", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.addBook(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
+      if (err) {res.redirect("/"); return}
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)
@@ -32,6 +44,7 @@ router.post("/add", utils.checkStudent, function(req, res){
 router.post("/remove", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.remBook(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
+      if (err) {res.redirect("/"); return}
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)
@@ -40,6 +53,7 @@ router.post("/remove", utils.checkStudent, function(req, res){
 router.post("/removeRequest", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.remRequest(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
+      if (err) {res.redirect("/"); return}
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)
@@ -48,6 +62,7 @@ router.post("/removeRequest", utils.checkStudent, function(req, res){
 router.post("/updateNotes", utils.checkStudent, function(req, res){
   if (req.body.bookId != null && (req.body.readState == "unread" || req.body.readState == "read")) {
     dbman.updateStateStudent(req.session.userid, req.body.bookId, req.body.readState, req.body.order, function(err, data){
+      if (err) {res.redirect("/"); return}
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)

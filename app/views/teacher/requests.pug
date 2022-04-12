@@ -24,9 +24,9 @@ append content
           form(action="/teacher/accept", method="post") 
             input(type="hidden", name="studentId" value=remReq.id_student)
             input(type="hidden", name="bookId" value=remReq.id_book)
-            button(type="submit" title="Potvrdit" class="fa-solid fa-check addrem ghover")
+            button(type="submit" title="Potvrdit" class="fa-solid fa-check addrem ghover pointer")
           form(action="/teacher/deny", method="post") 
             input(type="hidden", name="studentId" value=remReq.id_student)
             input(type="hidden", name="bookId" value=remReq.id_book)
-            button(type="submit" title="Zamítnout" class="fa-solid fa-x addrem rhover")
+            button(type="submit" title="Zamítnout" class="fa-solid fa-x addrem rhover pointer")
   

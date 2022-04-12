@@ -1,0 +1,9 @@
+extends layout.pug
+
+append content 
+  h2 Žádost o přidání do třídy
+  p Žák <strong>#{stName}</strong> (email: <strong>#{stEmail}</strong>)
+  p žádá o přidání do třídy <strong>#{stClass}</strong>
+  a(href=url) Klikněte zde pro potvrzení žádosti
+  hr
+  p(class="smallText") Pokud tento žák není z Vaší třídy, informujte jej prosím o chybné žádosti.

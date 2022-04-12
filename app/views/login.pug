@@ -20,16 +20,17 @@ block mainContainer
         div(class="fa-solid fa-triangle-exclamation error")
         h3(class="error") #{errorMsg}
 
-
     div(class="login")
       form(action="/login", method="post")
         h1 #{title}
+        hr(class="blueSep")
         div(class="inputField") 
           label(for="email")  Email 
-          input(type="email", name="email", id="email", placeholder="student@purkynka.cz", value=email)
+          input(type="email", name="email", id="email", placeholder="vase.jmeno@purkynka.cz", value=email)
           label(for="password")  Heslo 
           input(type="password", name="password", id="password", placeholder="••••••••")
           input(type="submit" value="Přihlásit")
+          a(href="register" class="green") Nemáte účet? <strong>Vytvořit účet</strong>
 
 append code 
   script.

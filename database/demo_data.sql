@@ -59,17 +59,17 @@ VALUES ("6", "6"), ("6", "7");
 
 -- === UČITELÉ ===
 
--- HESLO: helenadavidova --
+-- HESLO: janasusova --
 INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
-VALUES ("Jana", "Susová", "jana.susova@purkynka.cz", "$2a$10$fefsAZkc5GMu0CeIo6rNSui4DEHD8khl9y2hvZ74XKJ513r084Yzm");
+VALUES ("Jana", "Susová", "jana.susova@ahojzdravim.xyz", "$2a$10$fefsAZkc5GMu0CeIo6rNSui4DEHD8khl9y2hvZ74XKJ513r084Yzm");
 
 -- HESLO: petrnovak --
 INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
-VALUES ("Petr", "Novák", "petr.novak@purkynka.cz", "$2a$10$O6XXm2edD59RgwVxux9KLOI7eoTUSvqLn3xrGuM/kmUfqw4z80pNO");
+VALUES ("Petr", "Novák", "petr.novak@ahojzdravim.xyz", "$2a$10$O6XXm2edD59RgwVxux9KLOI7eoTUSvqLn3xrGuM/kmUfqw4z80pNO");
 
 -- HESLO: jiribrzobohaty --
 INSERT INTO teacher (`firstName`, `lastName`, `email`, `password`) 
-VALUES ("Jiří", "Brzobohatý", "jiri.brzobohaty@purkynka.cz", "$2a$10$qjbAK8MeTLSWD9HCiWOLwuAJkhK6PJ277BnkHPjhYSkvk.NAqTASe");
+VALUES ("Jiří", "Brzobohatý", "jiri.brzobohaty@ahojzdravim.xyz", "$2a$10$qjbAK8MeTLSWD9HCiWOLwuAJkhK6PJ277BnkHPjhYSkvk.NAqTASe");
 
 
 -- === TŘÍDY ===
@@ -84,26 +84,26 @@ VALUES ('2019', 'V3C', '2');
 -- === STUDENTI ===
 
 -- HESLO: tomaskrejci --
-INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
-VALUES ("Tomáš", "Krejčí", "krejci.tomas@purkynka.cz", "$2a$10$VVa/HJv0FMcoCRLTO6LEl.Lr1kn9ljz.C29FJs8EGyRV/uVmPF2YK", "1");
+-- INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`) 
+-- VALUES ("Tomáš", "Krejčí", "krejci.tomas@purkynka.cz", "$2a$10$VVa/HJv0FMcoCRLTO6LEl.Lr1kn9ljz.C29FJs8EGyRV/uVmPF2YK", "1"); 
 
--- HESLO: zdenekborovec --
+-- HESLO: martinpolak --
 INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
-VALUES ("Martin", "Polák", "polak.martin@purkynka.cz", "$2a$10$gEnfQkMkIlvItX8CKmAiFO3W/bWJhP.CmFujOtxQYt5IYaYaLjWnK", "1");
+VALUES ("Martin", "Polák", "polak.martin@ahojzdravim.xyz", "$2a$10$gEnfQkMkIlvItX8CKmAiFO3W/bWJhP.CmFujOtxQYt5IYaYaLjWnK", "1");
 
 -- HESLO: vitrosicky --
 INSERT INTO student (`firstName`, `lastName`, `email`, `password`, `class_id`)
-VALUES ("Vít", "Rosický", "rosicky.vit@purkynka.cz", "$2a$10$VwvYEfy28s4lzJoCHGrcjuYn0JBHWC.TwIwm2b6e1kTambtWtdkiy", "2");
+VALUES ("Vít", "Rosický", "rosicky.vit@ahojzdravim.xyz", "$2a$10$VwvYEfy28s4lzJoCHGrcjuYn0JBHWC.TwIwm2b6e1kTambtWtdkiy", "2");
 
 
 -- === SEZNAM KNIH ===
 
 -- tomas krejci --
 
-INSERT INTO student_has_book (`student_id`, `book_id`, `order`, `state`)
-VALUES ("1", "1", "1", "unread"), ("1", "2", "2", "read"), ("1", "3", "3", "done");
+-- INSERT INTO student_has_book (`student_id`, `book_id`, `order`, `state`)
+-- VALUES ("1", "1", "1", "unread"), ("1", "2", "2", "read"), ("1", "3", "3", "done");
 
--- zdenek borovec --
+-- martin polak --
 
 INSERT INTO student_has_book (`student_id`, `book_id`, `order`)
 VALUES ("2", "4", "1"), ("2", "1", "2");

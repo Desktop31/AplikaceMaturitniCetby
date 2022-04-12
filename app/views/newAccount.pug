@@ -1,0 +1,67 @@
+extends layout.pug
+
+append vars
+  - const title = "Vytvoření účtu"
+
+block title 
+  title #{title}
+
+block mainContainer
+  div(class="content")
+    if msgType
+      div(class="alert")
+        if msgType == "error"
+          div(class="fa-solid fa-triangle-exclamation error")
+        else if msgType == "success"
+          div(class="fa-solid fa-circle-check success")
+        h3(class=msgType) #{msg}
+
+    unless msgType && msgType == "error"
+      div(class="login")
+        form(action="/createAccount", method="post")
+          h1 #{title}
+          hr(class="blueSep")
+          div(class="inputField") 
+            input(type="hidden", name="token", value=token)
+            label(for="email") Email 
+            input(type="email", id="email", placeholder="vase.jmeno@purkynka.cz", value=email disabled)
+            label(for="firstName") Jméno 
+            input(type="text", name="firstName", id="firstName", placeholder="např. Petr")
+            label(for="lastName") Příjmení 
+            input(type="text", name="lastName", id="lastName", placeholder="např. Novák" required)
+            label(for="stClass") Třída 
+            input(type="text", name="stClass", id="stClass", placeholder="např. V1A" required)
+            label(for="password") Heslo 
+            input(type="password", name="password", id="password", placeholder="••••••••" maxlength="50" oninput="checkStrength()" required)
+            span(class="error" id="passwStrength") 
+            label(for="passwordConf") Heslo znovu
+            input(type="password", id="passwordConf", placeholder="••••••••" maxlength="50" oninput="passwMatch()" required)
+            span(class="error" id="passwMatch") 
+            input(type="submit" value="Vytvořit účet")
+
+append code
+  script.
+    function checkStrength() {
+      passw = document.getElementById("password").value
+      alert = document.getElementById("passwStrength")
+      // min 1 cislice, 1 velke pismeno, 1 male pismeno, delka 8-50 znaku
+      pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[\\S]{8,50}$"
+
+      if (!passw.match(pattern)) { 
+        alert.innerText = "Heslo musí obsahovat: \n" + 
+                          "alespoň 1 číslo \n" + 
+                          "alespoň 1 velké písmeno \n" + 
+                          "alespoň 1 malé písmeno \n" + 
+                          "A musí mít 8-50 znaků" 
+      } else alert.innerText = ""
+    }
+
+    function passwMatch() {
+      passw = document.getElementById("password").value
+      passwConf = document.getElementById("passwordConf").value
+      alert = document.getElementById("passwMatch")
+      if (passw != passwConf) {
+        alert.innerText = "Hesla se neshodují!"
+      }
+      else alert.innerText = ""
+    }

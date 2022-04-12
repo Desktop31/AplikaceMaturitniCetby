@@ -15,7 +15,7 @@
   --grayBgAlt: #2b2c2e;
   --grayBgAltOpacity: rgba(43, 44, 46, 0.7);
   --grayBgOpacity: rgba(60, 62, 70, 0.7);
-  --white: #EDEDE1;
+  --white: white;
   --selected: #0E5831;
 
   --text: var(--white);
@@ -48,6 +48,30 @@ body {
 
 
 /* =================
+      COLORS
+==================== */
+
+.red {
+  color: var(--sspRed);
+}
+
+.green {
+  color: var(--sspGreen);
+}
+
+.blue {
+  color: var(--sspBlue);
+}
+
+.text {
+  color: var(--text);
+}
+
+.gray {
+  color: var(--gray);
+}
+
+/* =================
       TYPOGRAPHY
 ==================== */
 
@@ -56,7 +80,7 @@ h1, h2, h3, h4 {
   font-family: 'Roboto', sans-serif;
 }
 
-a,
+a, p,
 button {
   color: var(--textContrast);
   font-family: Arial, Helvetica, sans-serif;
@@ -82,6 +106,11 @@ textarea {
 .error {
   font-family: 'Roboto', sans-serif;
   color: orangered;
+}
+
+.success {
+  font-family: 'Roboto', sans-serif;
+  color: var(--sspGreen);
 }
 
 
@@ -110,13 +139,14 @@ input[type=submit],
 input[type=button] {
   color: var(--textContrast);
   padding: 10px;
-  background-color: var(--grayBgAltOpacity);
+  margin-top: 15px;
+  background-color: var(--sspBlue);
   border-radius: 4px;
 }
 
 input[type=submit]:hover,
 input[type=button]:hover {
-  background-color: var(--sspBlue);
+  background-color: var(--selected);
   cursor: pointer;
 }
 
@@ -129,6 +159,13 @@ input[type=radio] {
 input[type=radio]:disabled {
   background: var(--gray);
   border-color: var(--grayBgAlt);
+}
+
+input[type=text]:disabled,
+input[type=email]:disabled,
+input[type=password]:disabled {
+  color: var(--gray);
+  background: var(--grayBgOpacity);
 }
 
 input[type=radio]:checked {
@@ -169,6 +206,7 @@ textarea {
 textarea:disabled {
   border-color: var(--grayBgAlt);
   color: var(--white);
+  opacity: 1;
 }
 
 /* === THEME SWITCH ===== */
@@ -204,10 +242,24 @@ textarea:disabled {
 }
 
 .alert .fa-circle-exclamation,
-.alert .fa-triangle-exclamation {
+.alert .fa-triangle-exclamation,
+.alert .fa-circle-check {
   align-self: center;
   margin-right: 10px;
   font-size: 1.5rem;
+}
+
+.blueSep {
+  border: 3px solid;
+  border-color: var(--sspBlue);
+  background-color: var(--sspBlue);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* =================
@@ -239,12 +291,15 @@ header {
 }
 
 #logo {
-  height: 9em;
+  height: 5em;
+  margin-right: 20px;
 }
 
 .title h1 {
   text-transform: uppercase;
   line-height: 140%;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 header nav {
@@ -450,6 +505,10 @@ header nav a:hover {
   background-color: var(--sspRed);
 }
 
+.pointer:hover {
+  cursor: pointer;
+}
+
 .mainItem div {
   display: flex;
   align-items: center;
@@ -474,7 +533,6 @@ header nav a:hover {
   width: max-content;
   align-self: stretch;
   justify-content: center;
-  cursor: pointer;
 }
 
 .list .fa-solid {
@@ -562,7 +620,6 @@ header nav a:hover {
 }
 
 .popup {
-  /* transform: translateY(-90%); */
   margin-top: -20%;
   background: var(--background);
   padding: 1rem;
@@ -590,6 +647,7 @@ header nav a:hover {
 
 .popup textarea {
   width: 90%;
+  min-height: 100px;
 }
 
 /* =================

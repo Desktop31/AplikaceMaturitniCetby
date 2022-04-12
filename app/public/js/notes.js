@@ -60,9 +60,8 @@ function notesStudent(bid, bname, bstate, border, tnote) {
     doneLabel.htmlFor = "done"
     doneLabel.innerText = "Kniha otestována"
     form.appendChild(doneLabel)
+    form.appendChild(document.createElement("br"))
   }
-
-  form.appendChild(document.createElement("br"))
 
   orderLabel = document.createElement("label")
   orderLabel.htmlFor = "order"
@@ -136,6 +135,12 @@ function notesTeacher(stId, bid, bname, bstate, tnote) {
   bookId.name = "bookId"
   bookId.value = bid
   form.appendChild(bookId)
+
+  prevState = document.createElement("input")
+  prevState.type = "hidden"
+  prevState.name = "prevState"
+  prevState.value = bstate
+  form.appendChild(prevState)
 
   doneLabel = document.createElement("label")
   doneLabel.htmlFor = "done"
