@@ -23,7 +23,6 @@ append content
         - lockMsg = "Výběr děl odemčen"
         a(class="mainItem") !{lockMsg}
         a(class="fa-solid fa-lock-open" title="Uzamknout výběr" onclick="lock(\""+details.id_class+"\", \""+details.name+"\")")
-  //-h1 Žáci:
   hr(class="blueSep")
   unless (data) 
     h3(class="error") Došlo k chybě
@@ -31,4 +30,13 @@ append content
     ul(class="tileMenu list twocol") 
       each st in data
         li
-          a(href="/teacher/student/"+st.id class="mainItem ghover") #{st.firstName} #{st.lastName}
+          a(href="/teacher/student/"+st.id class="mainItem ghover") 
+            div
+              div
+                i(class="fa-solid fa-user") &nbsp;
+                span #{st.firstName} #{st.lastName}
+              div(class="right") 
+                if (st.bcount == null) 
+                  - st.bcount = 0
+                span #{st.bcount} &nbsp;
+                i(class="fa-solid fa-book") 

@@ -1,8 +1,3 @@
--- === ADMIN ÚČET ===
-CREATE USER IF NOT EXISTS 'cetbaAdmin'@'localhost' IDENTIFIED BY 'admin';
-GRANT ALL PRIVILEGES ON `maturitni\_cetba`.* TO 'cetbaAdmin'@'localhost';
-
-
 
 -- === AUTOŘI ===
 
@@ -27,9 +22,6 @@ VALUES ("Jan", "Werich");
 INSERT INTO author (`firstName`, `lastName`)
 VALUES ("Jiří", "Voskovec");
 
-INSERT INTO author (`firstName`, `lastName`)
-VALUES ("Viktor", "Dyk");
-
 
 -- === KNIHY ===
 
@@ -51,12 +43,6 @@ VALUES ("Malý princ", "20./21.", "svet", "https://www.databazeknih.cz/knihy/mal
 INSERT INTO book (`name`, `century`, `category`, `link`)
 VALUES ("Balada z hadrů", "20./21.", "cz", "https://www.databazeknih.cz/knihy/balada-z-hadru-98652");
 
-INSERT INTO book (`name`, `century`, `category`, `link`)
-VALUES ("Milá sedmi loupežníků", "20./21.", "cz", "https://www.databazeknih.cz/knihy/mila-sedmi-loupezniku-3425");
-
-INSERT INTO book (`name`, `century`, `category`, `link`)
-VALUES ("Krysař", "20./21.", "cz", "https://www.databazeknih.cz/knihy/krysar-42447");
-
 
 -- === KNIHY AUTOŘI ===
 
@@ -65,9 +51,6 @@ VALUES ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5");
 
 INSERT INTO book_has_author (`book_id`, `author_id`)
 VALUES ("6", "6"), ("6", "7");
-
-INSERT INTO book_has_author (`book_id`, `author_id`)
-VALUES ("7", "8"), ("8", "8");
 
 -- === UČITELÉ ===
 

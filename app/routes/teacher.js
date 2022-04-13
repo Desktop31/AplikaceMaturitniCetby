@@ -31,8 +31,9 @@ router.get("/student/:stId", utils.checkTeacher, function(req, res){
     if (err) {res.redirect("/"); return}
     if(details.length == 0) {res.redirect("/"); return}
     if(details[0].teacher_id != req.session.userid) {res.redirect("/"); return}
-    dbman.getPersonalBooklist(req.params.stId, function(err, data){
+    dbman.getPersonalBooklist(req.params.stId, function(err, qResult){
       if (err) {res.redirect("/"); return}
+      data = utils.createBooklist(qResult)
       res.render("teacher/studentBooks", { data, details: details[0]})
     })
   })

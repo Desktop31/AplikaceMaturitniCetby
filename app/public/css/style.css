@@ -219,6 +219,7 @@ textarea:disabled {
   border: none;
 }
 
+
 #themeSwitch:checked {
   color: yellow;
 }
@@ -253,6 +254,14 @@ textarea:disabled {
   border: 3px solid;
   border-color: var(--sspBlue);
   background-color: var(--sspBlue);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.graySep {
+  border: 3px solid;
+  border-color: var(--grayBgAlt);
+  background-color: var(--grayBgAlt);
   margin-top: 4px;
   margin-bottom: 4px;
 }
@@ -411,6 +420,11 @@ header nav a:hover {
   transition: 0.2s;
 }
 
+.tileMenu h2 {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
 @media only screen and (max-width: 610px) {
   .tileMenu {
     width: 100%;
@@ -512,6 +526,7 @@ header nav a:hover {
 .mainItem div {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .twocol {
@@ -524,7 +539,7 @@ header nav a:hover {
 }
 
 .list {
-  min-width: 70%;
+  min-width: 100%;
 }
 
 .list li a,
@@ -535,7 +550,8 @@ header nav a:hover {
   justify-content: center;
 }
 
-.list .fa-solid {
+.list .fa-solid,
+.list .center {
   display: flex;
 }
 
@@ -592,6 +608,12 @@ header nav a:hover {
 .list .fa-lock:hover {
   background-color: #2b462e;
   cursor: pointer;
+}
+
+.right {
+  display: flex;
+  text-align: right;
+  justify-content: flex-end;
 }
 
 @media only screen and (max-width: 420px) {

@@ -1,13 +1,13 @@
 -- == Seznam děl ==
 
-SELECT b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
+SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
 FROM book b, author a, book_has_author bha
 WHERE bha.book_id = b.id_book AND bha.author_id = a.id_author
 ORDER BY a.lastName ASC, a.firstName ASC;
 
 
 -- Seznam děl + jestli je student má v seznamu
-SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, sb.id_student, bl.id_book
+SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastName, sb.id_student, bl.id_book
 FROM 
 (SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
 FROM book b, author a, book_has_author bha
@@ -22,7 +22,7 @@ ORDER BY bl.lastName ASC, bl.firstName ASC;
 
 
 -- Seznam děl studenta --
-SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, bl.id_book, sb.order, sb.state, sb.teachersNote 
+SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastName, bl.id_book, sb.order, sb.state, sb.teachersNote 
 FROM 
 (SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName 
 FROM book b, author a, book_has_author bha 
@@ -65,8 +65,9 @@ FROM class c, student st
 WHERE c.id_class = st.class_id AND st.id_student = 1 LIMIT 1;
 
 -- Seznam žáků třídy --
-SELECT id_student id, firstName, lastName FROM student
-WHERE class_id = ? ORDER BY lastName ASC;
+SELECT s.id_student id, s.firstName, s.lastName, bc.bcount 
+FROM student s LEFT JOIN (SELECT COUNT(student_id) bcount, student_id FROM student_has_book GROUP BY student_id) bc 
+ON s.id_student = bc.student_id WHERE s.class_id = ? ORDER BY s.lastName ASC; 
 
 -- Seznam žádostí o odebrání knihy [teacher_id] --
 SELECT snb.id_student, snb.firstName, snb.lastName, snb.id_book, snb.name as cname, b.name as bname FROM book b RIGHT JOIN 
@@ -165,3 +166,10 @@ DELETE FROM class_confirm WHERE token = ?;
 
 -- Přiřazení třídy [idClass, stId] --
 UPDATE student SET class_id = ? WHERE id_student = ? AND class_id IS NULL;
+
+
+-- Booklist s book a author oddelene --
+SELECT b.name, b.century, b.category, b.active, b.link, b.id_book FROM book b;
+
+SELECT bha.book_id, a.firstName, a.lastName FROM author a, book_has_author bha 
+WHERE bha.author_id = a.id_author ORDER BY a.lastName ASC, a.firstName ASC;

@@ -5,26 +5,35 @@ var swChBox = document.getElementById("themeSwitch")
 
 window.onload = function() {
   let theme = localStorage.getItem("theme")
-  console.log(time >= night || theme === "night")
-  if (time >= night || theme === "night") {
+  if (!theme) {
+    if (time >= night) {
+      swChBox.checked = true
+      setTheme("night")
+    } else {
+      swChBox.checked = false
+      setTheme("day")
+    }
+  } else if (theme === "night") {
     swChBox.checked = true
-    localStorage.setItem("theme", "night");
-  }
-  if (theme === "day") {
+    setTheme("night")
+  } else if (theme === "day") {
     swChBox.checked = false
-    localStorage.setItem("theme", "day");
+    setTheme("day")
   }
-  setTheme()
 }
 
 swChBox.onchange = function() {
-  if (swChBox.checked) localStorage.setItem("theme", "night");
-  else localStorage.setItem("theme", "day");
-  setTheme()
+  if (swChBox.checked) {
+    localStorage.setItem("theme", "night")
+    setTheme("night")
+  }
+  else {
+    localStorage.setItem("theme", "day") 
+    setTheme("day")
+  }
 }
 
-function setTheme() {
-  let theme = localStorage.getItem("theme")
+function setTheme(theme) {
   if (theme === "night") {
       document.documentElement.style.setProperty("--text", "var(--white)");
       document.documentElement.style.setProperty("--background", "var(--darkBlue)");

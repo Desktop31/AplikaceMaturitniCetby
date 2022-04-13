@@ -20,10 +20,10 @@ append content
         li 
           if schClass.lockTime 
             - date = new Date(schClass.lockTime)
-            - lockFormat = " | Zamknuto do " + date.toLocaleString("cs-CZ", {timeZone: "CET"}) + " | Počet děl: " + schClass.lockCount
+            - lockFormat = " | Zamknuto do <strong>" + date.toLocaleString("cs-CZ", {timeZone: "CET"}) + "</strong> | Počet děl: <strong>" + schClass.lockCount + "</strong>"
           else 
             - lockFormat = null
-          a(href="/teacher/class/"+schClass.id class="mainItem ghover") #{schClass.name} #{lockFormat}
+          a(href="/teacher/class/"+schClass.id class="mainItem ghover") #{schClass.name} !{lockFormat}
           if schClass.lockTime
             a(class="fa-solid fa-lock" title="Odemknout výběr" onclick="unlock(\""+schClass.id+"\", \""+schClass.name+"\")")
           else 

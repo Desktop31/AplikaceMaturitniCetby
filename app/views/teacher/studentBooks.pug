@@ -17,13 +17,14 @@ append content
     ul(class="tileMenu list") 
       each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
         li(class=book.state)
-          a #{book.order}
+          a(class="center") #{book.order}
           a(class="mainItem") 
             div
               i(class="fa-solid fa-book") &nbsp;
               span #{book.name}
             div(class="bookAuthor")
               i(class="fa-solid fa-user-pen")
-              span #{book.firstName} #{book.lastName}
+              for author in book.authors
+                span #{author.firstName} #{author.lastName} 
           a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
           a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesTeacher(\""+details.id_student+"\", \""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+encodeURI(book.teachersNote)+"\")")

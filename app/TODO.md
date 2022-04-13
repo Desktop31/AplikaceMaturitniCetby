@@ -3,8 +3,8 @@
   - [DONE] mysql setup
   - [DONE] pokud kniha done, změnit možnost odebrat na požádat o výměnu
   - [DONE] zobrazit +/- v seznamu knih pouze pokud je přihlášen žák
-  - rozdělit knihy v seznamu podle kategorií
-  - zobrazení víc autorů u knihy
+  - [DONE] rozdělit knihy v seznamu podle kategorií
+  - [DONE] zobrazení víc autorů u knihy
   - [DONE] registrace
   - manuál
   - dokumentace
@@ -59,6 +59,7 @@
 ---
 
 ### Níká priorita:
+  - [DONE] počet knih u studenta v seznamu učitele
   - stránka na generování hashe pro admina
   - ?generátor PDF seznamu knih
   - [DONE] ?light/dark mode switche

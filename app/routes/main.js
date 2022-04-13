@@ -1,5 +1,6 @@
 const dbman = require("../utils/dbManager.js")
 const email = require("../utils/emailManager.js")
+const utils = require("../utils/functions.js")
 const bcrypt = require("bcrypt")
 const dotenv = require("dotenv")
 const crypto = require("crypto")
@@ -70,23 +71,26 @@ router.get("/confirmClass", function(req, res) {
 router.get("/booklist", function(req, res) {
   if (req.session.role == "student") {
     if (req.session.classid == null) { // student nemá třídu
-      dbman.getAllBooksOpt(req.session.userid, function(err, data){
+      dbman.getAllBooksOpt(req.session.userid, function(err, qResult){
         if (err) {res.redirect("/"); return}
+        data = utils.createBooklist(qResult)
         res.render("availableBooklist", { data})
       })
     } else {
       dbman.getClassDetails(req.session.classid, function(err, details) {
         if (err) {res.redirect("/"); return}
-        dbman.getAllBooksOpt(req.session.userid, function(err, data){
+        dbman.getAllBooksOpt(req.session.userid, function(err, qResult){
           if (err) {res.redirect("/"); return}
+          data = utils.createBooklist(qResult)
           res.render("availableBooklist", { data, details: details[0]})
         })
       })
     }
   }
   else {
-    dbman.getAllBooks(function(err, data){
+    dbman.getAllBooks(function(err, qResult){
       if (err) {res.redirect("/"); return}
+      data = utils.createBooklist(qResult)
       res.render("availableBooklist", { data})
     })
   }

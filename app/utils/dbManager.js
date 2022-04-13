@@ -3,8 +3,11 @@ const dotenv = require("dotenv")
 const res = require("express/lib/response")
 dotenv.config()
 
+var bookLimit = process.env.USERBOOKLIMIT || 20
+
 const pool = mysql.createPool({ // pool se sám postará o výpadky/znovu připojení databáze
   host: process.env.DBHOST,
+  port: process.env.DBPORT,
   user: process.env.DBUSER,
   password: process.env.DBPASSW,
   database: process.env.DB
@@ -12,7 +15,7 @@ const pool = mysql.createPool({ // pool se sám postará o výpadky/znovu připo
 
 
 module.exports.getAllBooks = function (callback) {
-  sql = "SELECT b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName "
+  sql = "SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName "
    + "FROM book b, author a, book_has_author bha "
    + "WHERE bha.book_id = b.id_book AND bha.author_id = a.id_author "
    + "ORDER BY a.lastName ASC, a.firstName ASC;"
@@ -27,7 +30,7 @@ module.exports.getAllBooks = function (callback) {
 }
 
 module.exports.getAllBooksOpt = function (id, callback) {
-  sql = "SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, sb.id_student, sb.state, bl.id_book "
+  sql = "SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastName, sb.id_student, sb.state, bl.id_book "
     + "FROM "
     + "(SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName "
     + "FROM book b, author a, book_has_author bha "
@@ -77,7 +80,7 @@ module.exports.getTeacher = function (email, callback) {
 }
 
 module.exports.getPersonalBooklist = function (id, callback) {
-  sql = "SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastname, bl.id_book, sb.order, sb.state, sb.teachersNote "
+  sql = "SELECT bl.name, bl.century, bl.category, bl.active, bl.link, bl.firstName, bl.lastName, bl.id_book, sb.order, sb.state, sb.teachersNote "
     + "FROM "
     + "(SELECT b.id_book, b.name, b.century, b.category, b.active, b.link, a.firstName, a.lastName "
     + "FROM book b, author a, book_has_author bha "
@@ -136,8 +139,9 @@ module.exports.getStudentDetails = function (id, callback) {
 }
 
 module.exports.getClassStudents = function (id, callback) {
-  sql = "SELECT id_student id, firstName, lastName FROM student "
-    + "WHERE class_id = ? ORDER BY lastName ASC; "
+  sql = "SELECT s.id_student id, s.firstName, s.lastName, bc.bcount "
+    + "FROM student s LEFT JOIN (SELECT COUNT(student_id) bcount, student_id FROM student_has_book GROUP BY student_id) bc "
+    + "ON s.id_student = bc.student_id WHERE s.class_id = ? ORDER BY s.lastName ASC; "
   pool.query(sql, [id], function (err, results) {
     if (err) {
       callback(err, null)
@@ -226,7 +230,7 @@ module.exports.addBook = function (stId, bookId, classId, callback) {
         pool.query(sql2, [stId], function (err, res2) {
           if (err) {
             callback(err, null)
-          } else if (res2 && res2[0].num >= 20) {
+          } else if (res2 && res2[0].num >= bookLimit) {
             callback(null, res2)
           } else {
             sql3 = "INSERT INTO student_has_book (`student_id`, `book_id`, `order`) "

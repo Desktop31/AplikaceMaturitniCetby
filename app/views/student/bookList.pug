@@ -48,14 +48,15 @@ append content
       each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
         form(action="/student/remove" method="post" class="liform") 
           li(class=book.state)
-            a #{book.order}
+            a(class="center") #{book.order}
             a(href=book.link target="_blank" class="mainItem") 
               div
                 i(class="fa-solid fa-book") &nbsp;
                 span #{book.name}
               div(class="bookAuthor")
                 i(class="fa-solid fa-user-pen")
-                span #{book.firstName} #{book.lastName}
+                for author in book.authors
+                  span #{author.firstName} #{author.lastName} 
             a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe hideNoFit")
             a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesStudent(\""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+book.order+"\" , \""+encodeURI(book.teachersNote)+"\")")
             unless details && details.lockTime

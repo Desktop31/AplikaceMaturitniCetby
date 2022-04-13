@@ -6,8 +6,9 @@ const router = express.Router()
 
 router.get("/", utils.checkStudent, function(req, res){
   if (req.session.classid == null) { // student nemá třídu
-    dbman.getPersonalBooklist(req.session.userid, function(err, data){
+    dbman.getPersonalBooklist(req.session.userid, function(err, qResult){
       if (err) {res.redirect("/"); return}
+      data = utils.createBooklist(qResult)
       switch (req.query.alert) {
         case "1":
           res.render("student/bookList", { data, msgType: "success", msg: "Email úspěšně odeslán!"})
@@ -21,8 +22,9 @@ router.get("/", utils.checkStudent, function(req, res){
   } else {
     dbman.getClassDetails(req.session.classid, function(err, details) {
       if (err) {res.redirect("/"); return}
-      dbman.getPersonalBooklist(req.session.userid, function(err, data){
+      dbman.getPersonalBooklist(req.session.userid, function(err, qResult){
         if (err) {res.redirect("/"); return}
+        data = utils.createBooklist(qResult)
         res.render("student/bookList", { data, details: details[0]})
       })
     })
