@@ -66,7 +66,7 @@ module.exports.getTeacher = function (email, callback) {
   sql = "SELECT t.id_teacher id, t.firstName, t.lastName, t.email, t.password "
     + "FROM teacher t "
     + "WHERE t.email = ? "
-    + "LIMIT 1; "
+    + "LIMIT 1; " // nice
   pool.query(sql, [email], function (err, results) {
     if (err) {
       callback(err, null)

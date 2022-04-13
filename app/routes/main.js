@@ -66,7 +66,7 @@ router.get("/confirmClass", function(req, res) {
     else res.render("confirmClass", { msgType: "error", msg: "Nastala chyba!"})
   })
 })
-
+// nice
 router.get("/booklist", function(req, res) {
   if (req.session.role == "student") {
     if (req.session.classid == null) { // student nemá třídu

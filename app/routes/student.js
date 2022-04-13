@@ -66,7 +66,7 @@ router.post("/updateNotes", utils.checkStudent, function(req, res){
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)
-})
+}) // nice
 
 router.use("*", function(error, req, res, next){
   if (req.session.role === "teacher") {

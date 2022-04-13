@@ -5,11 +5,12 @@ var swChBox = document.getElementById("themeSwitch")
 
 window.onload = function() {
   let theme = localStorage.getItem("theme")
+  console.log(time >= night || theme === "night")
   if (time >= night || theme === "night") {
     swChBox.checked = true
     localStorage.setItem("theme", "night");
   }
-  else {
+  if (theme === "day") {
     swChBox.checked = false
     localStorage.setItem("theme", "day");
   }

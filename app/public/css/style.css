@@ -291,7 +291,7 @@ header {
 }
 
 #logo {
-  height: 5em;
+  height: 4em;
   margin-right: 20px;
 }
 
@@ -306,7 +306,7 @@ header nav {
   flex: 25%;
   text-align: center;
   width: 100%;
-  margin: 10px 0 15px 0;
+  margin: 15px 0 15px 0;
 }
 
 header nav ul{
@@ -421,12 +421,12 @@ header nav a:hover {
 
 .mainMenu {
   height: 70%;
+  width: 100%;
   align-items: stretch;
 }
 
 .mainMenu li {
   flex: 50%;
-  /* max-width: 50%; */
 }
 
 .mainMenu li a {

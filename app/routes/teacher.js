@@ -66,7 +66,7 @@ router.post("/locking", utils.checkTeacher, function(req, res){
         if (err) {res.redirect("/"); return}
         res.redirect(req.headers.referer)
         return
-      })
+      }) // nice
     }
   })
 })
