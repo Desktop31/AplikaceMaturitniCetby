@@ -8,6 +8,7 @@
   - [DONE] registrace
   - manuál
   - dokumentace
+  - naplnit databázi knih
 
 ### Student:
   - [DONE] systém pořadí knih
@@ -16,6 +17,7 @@
   - [DONE] poznámky u knihy z pohledu žáka
   - [DONE] změna pořadí knih
   - [DONE] kontrola limitu 20 knih
+  - [DONE] přidání/odebrání přes ajax
 
 ### Teacher:
   - [DONE] seznam tříd
@@ -25,6 +27,7 @@
   - [DONE] žádosti o odebrání
   - [DONE] poznámky u knihy z pohledu učitele
   - [DONE] stav knihy při změně poznámky/zrušení done
+  - ?změna hesla
 
 ### Databáze:
   - [DONE] pořadí knihy (vyřeším pomocí data přidání)

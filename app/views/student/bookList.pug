@@ -11,6 +11,7 @@ append scripts
   script(src="/js/removeRequest.js") 
   script(src="/js/notes.js") 
   script(src="/js/classRequest.js") 
+  script(src="/js/addrem.js") 
 
 prepend content
   if msgType
@@ -46,22 +47,22 @@ append content
   if (data)
     ul(class="tileMenu list") 
       each book in data.sort((a, b) => (a.order > b.order) ? 1 : -1)
-        form(action="/student/remove" method="post" class="liform") 
-          li(class=book.state)
-            a(class="center") #{book.order}
-            a(href=book.link target="_blank" class="mainItem") 
-              div
-                i(class="fa-solid fa-book") &nbsp;
-                span #{book.name}
-              div(class="bookAuthor")
-                i(class="fa-solid fa-user-pen")
-                for author in book.authors
-                  span #{author.firstName} #{author.lastName} 
-            a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe hideNoFit")
-            a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesStudent(\""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+book.order+"\" , \""+encodeURI(book.teachersNote)+"\")")
-            unless details && details.lockTime
-              input(type="hidden", name="bookId" value=book.id_book)
-              if book.state == "done"
-                button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-              else 
-                button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
+        //-form(action="/student/remove" method="post" class="liform") 
+        li(class=book.state)
+          a(class="center") #{book.order}
+          a(href=book.link target="_blank" class="mainItem") 
+            div
+              i(class="fa-solid fa-book") &nbsp;
+              span #{book.name}
+            div(class="bookAuthor")
+              i(class="fa-solid fa-user-pen")
+              for author in book.authors
+                span #{author.firstName} #{author.lastName} 
+          a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe hideNoFit")
+          a(class="fa-solid fa-note-sticky" title="Poznámky" onclick="notesStudent(\""+book.id_book+"\", \""+book.name+"\", \""+book.state+"\", \""+book.order+"\" , \""+encodeURI(book.teachersNote)+"\")")
+          unless details && details.lockTime
+            input(type="hidden", name="bookId" value=book.id_book)
+            if book.state == "done"
+              button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+            else 
+              button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")

@@ -2,8 +2,6 @@
 CREATE USER IF NOT EXISTS 'cetbaAdmin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON `maturitni\_cetba`.* TO 'cetbaAdmin'@'localhost';
 
-
-
 -- === AUTOŘI ===
 
 INSERT INTO author (`firstName`, `lastName`)

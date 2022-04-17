@@ -9,6 +9,7 @@ append vars
 
 append scripts 
   script(src="/js/removeRequest.js")  
+  script(src="/js/addrem.js")  
 
 block title
   title #{title}
@@ -34,184 +35,154 @@ block mainContainer
         h2 Světová literatura do konce 18. století:
         each book in data
           if (book.active === "yes" && book.century == "18." && book.category == "svet")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
         
       hr(class="graySep")
       ul(class="tileMenu list") 
         h2 Česká literatura do konce 18. století:
         each book in data
           if (book.active === "yes" && book.century == "18." && book.category == "cz")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
         
       hr(class="graySep")
       ul(class="tileMenu list") 
         h2 Světová literatura 19. století:
         each book in data
           if (book.active === "yes" && book.century == "19." && book.category == "svet")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
 
       hr(class="graySep")
       ul(class="tileMenu list") 
         h2 Česká literatura 19. století:
         each book in data
           if (book.active === "yes" && book.century == "19." && book.category == "cz")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
         
       hr(class="graySep")
       ul(class="tileMenu list") 
         h2 Světová literatura 20. a 21. století:
         each book in data
           if (book.active === "yes" && book.century == "20./21." && book.category == "svet")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
         
       hr(class="graySep")
       ul(class="tileMenu list") 
         h2 Česká literatura 20. a 21. století:
         each book in data
           if (book.active === "yes" && book.century == "20./21." && book.category == "cz")
-            if book.id_student
-              - redir = "/student/remove"
-            else 
-              - redir = "/student/add"
-            form(action=redir method="post" class="liform") 
-              li 
-                a(class="mainItem") 
-                  div
-                    i(class="fa-solid fa-book") &nbsp;
-                    span #{book.name}
-                  div(class="bookAuthor")
-                    i(class="fa-solid fa-user-pen")
-                    for author in book.authors
-                      span #{author.firstName} #{author.lastName} 
-                a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
-                if session.role == "student"
-                  unless details && details.lockTime
-                    input(type="hidden", name="bookId" value=book.id_book)
-                    if book.id_student
-                      if book.state == "done"
-                        button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
-                      else 
-                        button(type="submit" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu")
-                    else
-                      button(type="submit" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu")
+            li 
+              a(class="mainItem") 
+                div
+                  i(class="fa-solid fa-book") &nbsp;
+                  span #{book.name}
+                div(class="bookAuthor")
+                  i(class="fa-solid fa-user-pen")
+                  for author in book.authors
+                    span #{author.firstName} #{author.lastName} 
+              a(href=book.link target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+              if session.role == "student"
+                unless details && details.lockTime
+                  input(type="hidden", name="bookId" value=book.id_book)
+                  if book.id_student
+                    if book.state == "done"
+                      button(type="button" class="fa-solid fa-right-left addrem" title="Požádat o výměnu" onclick="swapPopup(\""+book.id_book+"\", \""+book.name+"\")")
+                    else 
+                      button(type="button" class="fa-solid fa-minus addrem" title="Odebrat z mého seznamu" onclick="remBook(\""+book.id_book+"\")")
+                  else
+                    button(type="button" class="fa-solid fa-plus addrem" title="Přidat do mého seznamu" onclick="addBook(\""+book.id_book+"\")")
         

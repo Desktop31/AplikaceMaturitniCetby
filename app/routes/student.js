@@ -37,19 +37,22 @@ router.get("/", utils.checkStudent, function(req, res){
 router.post("/add", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.addBook(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
-      if (err) {res.redirect("/"); return}
-      res.redirect(req.headers.referer)
+      if (err) {res.json({ success: false}); return}
+      //res.redirect(req.headers.referer)
+      res.json({ success: true})
+      return
     })
-  } else res.redirect(req.headers.referer)
+  } else {res.json({ success: false}); return}
 })
 
 router.post("/remove", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.remBook(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
-      if (err) {res.redirect("/"); return}
-      res.redirect(req.headers.referer)
+      if (err) {res.json({ success: false}); return}
+      res.json({ success: true})
+      return
     })
-  } else res.redirect(req.headers.referer)
+  } else {res.json({ success: false}); return}
 })
 
 router.post("/removeRequest", utils.checkStudent, function(req, res){
