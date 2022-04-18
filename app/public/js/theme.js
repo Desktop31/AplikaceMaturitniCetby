@@ -37,10 +37,14 @@ function setTheme(theme) {
   if (theme === "night") {
       document.documentElement.style.setProperty("--text", "var(--white)");
       document.documentElement.style.setProperty("--background", "var(--darkBlue)");
+      document.documentElement.style.setProperty("--sspGreen", "#199F58");
+      document.documentElement.style.setProperty("--sspBlue", "#003E90");
       swChBox.classList = "fa-solid fa-sun"
   } else if (theme === "day") {
       document.documentElement.style.setProperty("--text", "var(--darkBlue)");
       document.documentElement.style.setProperty("--background", "var(--white)");
+      document.documentElement.style.setProperty("--sspGreen", "#19dd58");
+      document.documentElement.style.setProperty("--sspBlue", "#003ec8");
       swChBox.classList = "fa-solid fa-moon"
   }
 }

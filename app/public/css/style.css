@@ -4,8 +4,8 @@
 
 :root {
   --darkBlue: #171923;
-  --sspGreen: #199F58;
-  --sspBlue: #003E90;
+  --sspGreen: #199F58; /* Lighter: #19dd58, Darker: #199F58*/
+  --sspBlue: #003E90; /* Lighter: #003ec8, Darker: #003E90*/
   --sspRed: #E2001A;
   --gray: #ABACB0;
   --grayBg: #3C3E46;
