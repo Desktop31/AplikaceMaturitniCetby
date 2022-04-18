@@ -1,4 +1,5 @@
 -- === ADMIN ÚČET ===
+-- pokud nefunguje: IDENTIFIED WITH mysql_native_password BY 'admin';
 CREATE USER IF NOT EXISTS 'cetbaAdmin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON `maturitni\_cetba`.* TO 'cetbaAdmin'@'localhost';
 
