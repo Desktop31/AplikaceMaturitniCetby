@@ -1,6 +1,5 @@
 // == SETUP ==
 const express = require("express")
-const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const dotenv = require("dotenv")
 
@@ -12,7 +11,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({extended: true}))
 
 // -- SESSION --
-var timeoutMin = 15
+var timeoutMin = process.env.SESSION_TIMEOUT || 15
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -35,8 +34,6 @@ const mainRouter = require("./routes/main")
 const studentRouter = require("./routes/student")
 const teacherRouter = require("./routes/teacher")
 const { render } = require("express/lib/response")
-// const res = require("express/lib/response")
-// const { render } = require("express/lib/response")
 
 app.use("/", mainRouter)
 app.use("/student", studentRouter)

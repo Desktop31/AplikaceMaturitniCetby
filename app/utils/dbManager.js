@@ -1,6 +1,5 @@
 const mysql = require("mysql")
 const dotenv = require("dotenv")
-const res = require("express/lib/response")
 dotenv.config()
 
 var bookLimit = process.env.USERBOOKLIMIT || 20

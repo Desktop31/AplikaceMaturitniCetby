@@ -24,7 +24,7 @@ html(lang="cs")
     link(rel="shortcut icon", href="/media/favicon.ico", type="image/x-icon")
     block title
     block scripts
-      script(src="https://kit.fontawesome.com/4a7584d50e.js" crossorigin="anonymous")
+      link(rel="stylesheet", href="/fonts/fontawesome/css/all.min.css")
   body 
     header 
       a(href="/" class="title" tabindex="-1")
@@ -48,22 +48,22 @@ html(lang="cs")
       ul 
         li 
           a(href="http://www.sspbrno.cz") 
-            img(src="/media/logo.png", alt="SSPBrno")
+            img(src="/media/logo.png", alt="SSPBrno" title="Stránky školy")
         li 
           a(href="https://sspbrno.edupage.org/") 
-            img(src="/media/icons/edupage.png", alt="EduPage")
+            img(src="/media/icons/edupage.png", alt="EduPage" title="EduPage")
         li 
           a(href="https://outlook.office.com/mail/") 
-            img(src="/media/icons/outlook.png", alt="OutLook")
+            img(src="/media/icons/outlook.png", alt="Outlook" title="Outlook - Email")
         li 
           a(href="https://sspbrno.sharepoint.com/") 
-            img(src="/media/icons/sharepoint.png", alt="SharePoint")        
+            img(src="/media/icons/sharepoint.png", alt="SharePoint" title="SharePoint")        
         li 
           a(href="https://moodle.sspbrno.cz") 
-            img(src="/media/icons/moodle.png", alt="Moodle")
+            img(src="/media/icons/moodle.png", alt="Moodle" title="Moodle")
         li 
           a(href="https://stravovani.sspbrno.cz/") 
-            img(src="/media/icons/icanteen.png", alt="iCanteen")
+            img(src="/media/icons/icanteen.png", alt="iCanteen" title="iCanteen - Stravování")
 
     block code
      script(src="/js/theme.js")
