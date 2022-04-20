@@ -38,7 +38,6 @@ router.post("/add", utils.checkStudent, function(req, res){
   if (req.body.bookId != null) {
     dbman.addBook(req.session.userid, req.body.bookId, req.session.classid, function(err, data){
       if (err) {res.json({ success: false}); return}
-      //res.redirect(req.headers.referer)
       res.json({ success: true})
       return
     })
@@ -71,7 +70,7 @@ router.post("/updateNotes", utils.checkStudent, function(req, res){
       res.redirect(req.headers.referer)
     })
   } else res.redirect(req.headers.referer)
-}) // nice
+}) 
 
 router.use("*", function(error, req, res, next){
   if (req.session.role === "teacher") {
