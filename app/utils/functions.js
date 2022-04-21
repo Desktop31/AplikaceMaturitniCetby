@@ -58,25 +58,3 @@ module.exports.createBooklist = function(bookQuery) {
 
   return booklist
 }
-
-/*
-booklist = [
-	{
-		"id_student": "1",
-		"id_book": "1",
-		"name": "amogus",
-		"active": "yes",
-		"century": "19.",
-		"category": "cz",
-		"authors": [
-			{
-				"firstName": "opicak",
-				"lastName": "b"
-			}, 
-			{
-				"firstName": "opice",
-				"lastName": "c"
-			}]
-	}
-]
-*/
