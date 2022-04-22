@@ -6,8 +6,8 @@
   - [DONE] rozdělit knihy v seznamu podle kategorií
   - [DONE] zobrazení víc autorů u knihy
   - [DONE] registrace
-  - manuál
-  - dokumentace
+  - [DONE] manuál
+  - [DONE] dokumentace
   - naplnit databázi knih
 
 ### Student:
@@ -63,7 +63,7 @@
 
 ### Níká priorita:
   - [DONE] počet knih u studenta v seznamu učitele
-  - stránka na generování hashe pro admina
+  - stránka na generování hashe pro admina (změna: v manuálu odkaz)
   - ?generátor PDF seznamu knih
   - [DONE] ?light/dark mode switche
   - ??opravit darkmode (barevna cast css se nastavi pred poslanim html)

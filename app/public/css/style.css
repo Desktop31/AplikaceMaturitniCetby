@@ -328,6 +328,10 @@ summary:before {
   width: 20px;
 }
 
+summary {
+  cursor: pointer;
+}
+
 details[open] summary:before {
   content: "▼";
 }
