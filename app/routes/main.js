@@ -23,6 +23,10 @@ router.get("/", function(req, res) {
   else res.render("index")
 })
 
+router.get("/manual", function(req, res) {
+  res.render("manual")
+})
+
 router.get("/login", function(req, res) {
   if (!req.session.email) res.render("login")
   else res.redirect("/")

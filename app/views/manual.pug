@@ -1,0 +1,188 @@
+extends layout.pug
+
+append vars
+  - const title = "Manuál"
+
+block title
+  title #{title}
+
+block mainContainer 
+  div(class="content")
+    h1 #{title}
+    hr(class="blueSep")
+
+    details 
+      summary
+        div
+          h2 Funkce aplikace
+          hr(class="graySep")
+      p.
+        Tato aplikace umožňuje žákům a učitelům snadné sdílení seznamu děl maturitní četby. <br> <br>
+        Žák může si může ze seznamu děl přidat dílo do svého seznamu, může je odebrat, ve svém
+        seznamu sledovat stav knihy a poznámky učitele a měnit pořadí knihy. <br> <br>
+        Učitel vidí seznam svých tříd a v nich seznam žáků třídy. Může si zobrazit seznam četby žáka. <br>
+        Učitel má také možnost uzamknout výběr knih na určitý časový úsek, což znamená,
+        že žák nebude mít možnost si v této době přidat ani odebrat díla. 
+        Tato funkce je určena pro situaci před testem z knihy, aby žák nemohl odebrat knihu když ji učitel má v plánu dát
+        žákovi k testu.
+    
+    br
+    details 
+      summary
+        div
+          h2 Seznam děl
+          hr(class="graySep")
+      p.
+        Seznam děl je rozdělen do šesti kategorií, do kterých patří knihy pod příslušným nadpisem. <br>
+        Jednotlivé položky knih obsahují nahoře název knihy, dole jméno autora a tlačítko vpravo
+        je odkaz na stránky, kde lze knihu získat.
+      
+      ul(class="tileMenu list") 
+        li 
+          a(class="mainItem") 
+            div
+              i(class="fa-solid fa-book") &nbsp;
+              span Sluha dvou pánů
+            div(class="bookAuthor")
+              i(class="fa-solid fa-user-pen")
+              span Carlo Goldoni
+          a(href="https://www.databazeknih.cz/knihy/sluha-dvou-panu-71316" target="_blank" title="Databáze knih" class="fa-solid fa-globe")
+
+    br
+    details 
+      summary
+        div 
+          h2 Registrace do systému
+          hr(class="graySep")
+      p.
+        Učitelé své přihlašovací údaje obdrží od správce. <br>
+        Postup registrace pro žáka:
+      ol
+        li Přejděte na přihlašovací obrazovku
+        li Pod přihlašovacím tlačítkem klikněte na text: „Nemáte účet? Vytvořit účet”
+        li Zadejte školní email
+        li Potvrďte zadaný email
+        li V obdrženém emailu klikněte na odkaz „Klikněte zde pro dokončení registrace”
+        li Otevře se Vám stránka, na které zadáte své jméno, příjmení, třídu a zvolíte heslo
+        li Po vytvoření účtu se můžete přihlásit a začít přidávat knihy
+      p.
+        Po vytvoření účtu ještě nepatříte do žádné třídy. Učitel zadané třídy Vám musí potvrdit
+        žádost o vstup do třídy.
+    
+    br
+    details 
+      summary
+        div
+          h2 Žák
+          hr(class="graySep")
+      p.
+        Jako žák máte přístup ke svému seznamu četby. V tomto seznamu uvidíte zvolená díla,
+        můžete je přidat, odebrat, změnit jejich pořadí a stav. Váš učitel vidí tato díla také. 
+      br
+      p.
+        Stav knihy může být buď „nečteno” (značeno šedým pozadím), „přečteno” (značeno
+        modrým pozadím) a „otestováno” (značeno zeleným pozadím). Stavy „nečteno” a
+        „přečteno” si můžete měnit. Stav „otestováno” Vám nastaví učitel. Pokud je kniha v tomto
+        stavu, nemůžete ji odebrat ze seznamu. Místo toho musíte odeslat učiteli žádost o odebrání
+        knihy tlačítkem na místě původního tlačítka pro odebrání.
+      br
+      h3 Přidání a odebrání knihy
+      hr(class="graySep")
+      p.
+        Knihy můžete přidat či odebrat v kompletním seznamu děl nebo ve svém vlastním seznamu
+        tlačítky s ikonou plus a mínus.
+      br
+      h3 Poznámky u knihy
+      hr(class="graySep")
+      p.
+        Poznámky u knihy můžete změnit ve svém seznamu četby po kliknutí na ikonu štítku. Bude
+        otevřeno vyskakovací okno, ve kterém můžete změnit stav „nečteno” a „přečteno” a změnit
+        pořadí knihy. V tomto okně také uvidíte poznámku, kterou vám ke knize napsal učitel.
+        Kliknutím na tlačítko „Potvrdit změny” uložíte změny. Kliknutím na tlačítko „Zavřít”
+        změny zahodíte.
+  
+    br
+    details 
+      summary
+        div
+          h2 Učitel
+          hr(class="graySep")
+      p.
+        Jako učitel máte přístup k seznamu svých tříd. V tomto seznamu uvidíte své třídy. Po
+        rozkliknutí třídy uvidíte seznam žáků ve třídě a po vybrání žáka uvidíte jeho seznam děl.
+        V seznamu děl žáka můžete změnit jejich stav a přidat knize žáka písemnou poznámku.
+        <br> <br>
+        Stav knihy může být buď „nečteno” (značeno šedým pozadím), „přečteno” (značeno
+        modrým pozadím) a „otestováno” (značeno zeleným pozadím). Stav knihy můžete změnit
+        na „otestováno”. Pokud stav „otestováno” odeberete, bude kniha opět označena jako
+        „nečteno”.
+        <br> <br>
+        Písemnou poznámku uvidí i žák.
+      br
+      h3 Přidání žáků do třídy
+      hr(class="graySep")
+      p.
+        Žáci se do systému registrují sami a Vy obdržíte email s žádostí o vstup do třídy. V tomto
+        emailu budou údaje k identifikaci žáka, informace do které třídy chce vstoupit a odkaz na
+        potvrzení žádosti. Po kliknutí na tento odkaz bude žák přidán do třídy. Pokud se nejedná
+        o vašeho žáka, žádost ignorujte nebo tohoto žáka informujte, aby odeslal žádost do správné
+        třídy.
+      br
+      h3 Zobrazení tříd
+      hr(class="graySep")
+      p.
+        Do zobrazení tříd se dostanete z hlavního menu kliknutím na ikonu „Moje třídy”.
+        V tomto seznamu uvidíte seznam svých tříd a vedle každé třídy tlačítko na uzamknutí či
+        odemknutí výběru děl.
+      br
+      h3 Náhled třídy
+      hr(class="graySep")
+      p.
+        Po kliknutí na některou z tříd v seznamu tříd uvidíte stav uzamčení třídy a tlačítko pro
+        uzamknutí či odemknutí výběru děl. Pod tímto stavem uvidíte seznam
+        žáků své třídy, kteří jsou registrování v systému.
+        <br> <br>
+        U jednotlivých žáků je zobrazeno jejich jméno, příjmení a v pravé části počet knih v jejich
+        seznamu.
+      br
+      h3 Zobrazení seznamu studenta
+      hr(class="graySep")
+      p.
+        Po kliknutí na studenta uvidíte jeho seznam děl. U díla je vlevo uvedeno pořadí knihy, které
+        student zvolil. V pravé části se nachází tlačítko s ikonou štítku, které otevře poznámky u
+        knihy.
+      br
+      h3 Uzamknutí a odemknutí výběru děl
+      hr(class="graySep")
+      p.
+        Možnost výběru děl pro třídu je možné uzamknout tlačítkem s ikonou otevřeného zámku.
+        Pro uzamčení výběru klikněte na toto tlačítko. Zobrazí se Vám vyskakovací okno se
+        vstupem pro datum a čas, kdy se výběr automaticky odemkne. Tento čas je možné nastavit
+        minimálně na 1 den dopředu. Pro kratší časové úseky můžete výběr manuálně předčasně
+        odemknout. Dále je v tomto okně výběr počtu děl k testu. Tato hodnota je pouze informační
+        pro žáka.
+        <br> <br>
+        Uzamknutý výběr děl je možné manuálně odemknout kliknutím na tlačítko s ikonou
+        uzavřeného zámku. Po stisku tohoto tlačítka se dodatečně zobrazí potvrzovací okno.
+      br
+      h3 Upravení poznámek knihy studenta
+      hr(class="graySep")
+      p.
+        Poznámky lze upravit kliknutím na ikonu štítku vedle díla v seznamu studenta. Po kliknutí
+        se zobrazí vyskakovací okno. V tomto okně naleznete zaškrtávací políčko, označující
+        otestovaný stav knihy. Šedá výplň se zeleným okrajem značí, že kniha nebyla otestována.
+        Zelená výplň s šedým okrajem značí, že otestována byla. Pod tímto políčkem se také nachází
+        textové pole na písemnou poznámku. Poznámka může být dlouhá maximálně 255 znaků.
+        <br> <br>
+        Upravení poznámek potvrdíte kliknutím na tlačítko „Potvrdit změny”. Kliknutím na
+        tlačítko „Zavřít” tyto změny zahodíte.
+      br
+      h3 Žádosti o odebrání knihy
+      hr(class="graySep")
+      p.
+        V hlavním menu naleznete také tlačítko s ikonou obálek a nápisem „Žádosti”. Číslo v
+        závorce za tímto nápisem značí počet nevyřízených žádostí.
+        <br> <br>
+        U položky v seznamu žádostí je uvedeno jméno žáka, jeho třída a kniha, kterou chce
+        odebrat. Žádost můžete potvrdit tlačítkem s ikonou zaškrtnutí nebo ji odmítnout tlačítkem
+        s ikonou křížku.

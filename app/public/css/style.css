@@ -101,7 +101,23 @@ h1, h2, h3, h4 {
   font-family: 'Roboto', sans-serif;
 }
 
-a, p,
+h2, h3 {
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+p {
+  color: var(--text);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.2rem;
+  margin: 4px 10px 4px 10px;
+}
+
+ol, summary {
+  color: var(--text)
+}
+
+a,
 button {
   color: var(--textContrast);
   font-family: Arial, Helvetica, sans-serif;
@@ -292,6 +308,30 @@ textarea:disabled {
   cursor: pointer;
 }
 
+summary::-webkit-details-marker {
+  display: none
+}
+
+summary > div {
+  width: calc(100% - 50px);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+summary {
+  display: block
+}
+
+summary:before {
+  content: "►";
+  margin: 0px 10px 0 0;
+  width: 20px;
+}
+
+details[open] summary:before {
+  content: "▼";
+}
+
 /* =================
       HEADER
 ==================== */
@@ -439,11 +479,6 @@ header nav a:hover {
   background-color: var(--grayBgOpacity);
   border-radius: 4px;
   transition: 0.2s;
-}
-
-.tileMenu h2 {
-  margin-top: 5px;
-  margin-left: 10px;
 }
 
 @media only screen and (max-width: 610px) {
