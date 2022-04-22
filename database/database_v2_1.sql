@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`class` (
   `lockTime` DATETIME NULL DEFAULT NULL,
   `lockCount` INT NULL,
   PRIMARY KEY (`id_class`),
-  INDEX `fk_class_teacher1_idx` (`teacher_id` ASC) VISIBLE,
+  INDEX `fk_class_teacher1_idx` (`teacher_id` ASC) ,
   CONSTRAINT `fk_class_teacher1`
     FOREIGN KEY (`teacher_id`)
     REFERENCES `maturitni_cetba`.`teacher` (`id_teacher`)
@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`student` (
   `password` VARCHAR(255) NOT NULL,
   `class_id` INT NULL,
   PRIMARY KEY (`id_student`),
-  INDEX `fk_student_class_idx` (`class_id` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
+  INDEX `fk_student_class_idx` (`class_id` ASC) ,
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) ,
   CONSTRAINT `fk_student_class`
     FOREIGN KEY (`class_id`)
     REFERENCES `maturitni_cetba`.`class` (`id_class`)
@@ -101,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`book_has_author` (
   `book_id` INT NOT NULL,
   `author_id` INT NOT NULL,
   PRIMARY KEY (`book_id`, `author_id`),
-  INDEX `fk_bookList_has_author_author1_idx` (`author_id` ASC) VISIBLE,
-  INDEX `fk_bookList_has_author_bookList1_idx` (`book_id` ASC) VISIBLE,
+  INDEX `fk_bookList_has_author_author1_idx` (`author_id` ASC) ,
+  INDEX `fk_bookList_has_author_bookList1_idx` (`book_id` ASC) ,
   CONSTRAINT `fk_bookList_has_author_bookList1`
     FOREIGN KEY (`book_id`)
     REFERENCES `maturitni_cetba`.`book` (`id_book`)
@@ -127,8 +127,8 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`student_has_book` (
   `state` ENUM('unread', 'read', 'done') NOT NULL DEFAULT 'unread',
   `teachersNote` VARCHAR(255) NULL,
   PRIMARY KEY (`student_id`, `book_id`),
-  INDEX `fk_student_has_bookList_bookList1_idx` (`book_id` ASC) VISIBLE,
-  INDEX `fk_student_has_bookList_student1_idx` (`student_id` ASC) VISIBLE,
+  INDEX `fk_student_has_bookList_bookList1_idx` (`book_id` ASC) ,
+  INDEX `fk_student_has_bookList_student1_idx` (`student_id` ASC) ,
   CONSTRAINT `fk_student_has_bookList_student1`
     FOREIGN KEY (`student_id`)
     REFERENCES `maturitni_cetba`.`student` (`id_student`)
@@ -148,8 +148,8 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`remove_request` (
   `id_student` INT NOT NULL,
   `id_book` INT NOT NULL,
   `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  INDEX `fk_student_student1_idx` (`id_student` ASC) VISIBLE,
-  INDEX `fk_bookList_book1_idx` (`id_book` ASC) VISIBLE,
+  INDEX `fk_student_student1_idx` (`id_student` ASC) ,
+  INDEX `fk_bookList_book1_idx` (`id_book` ASC) ,
   PRIMARY KEY (`id_student`, `id_book`),
   CONSTRAINT `fk_student_student1`
     FOREIGN KEY (`id_student`)
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`registration` (
   `token` VARCHAR(255) NOT NULL,
   `expiration` DATETIME NULL,
   PRIMARY KEY (`email`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) )
 ENGINE = InnoDB;
 
 
@@ -184,9 +184,9 @@ CREATE TABLE IF NOT EXISTS `maturitni_cetba`.`class_confirm` (
   `id_student` INT NOT NULL,
   `id_class` INT NOT NULL,
   PRIMARY KEY (`id_student`),
-  UNIQUE INDEX `token_UNIQUE` (`token` ASC) VISIBLE,
-  INDEX `fk_class_confirm_student1_idx` (`id_student` ASC) VISIBLE,
-  INDEX `fk_class_confirm_class1_idx` (`id_class` ASC) VISIBLE,
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC) ,
+  INDEX `fk_class_confirm_student1_idx` (`id_student` ASC) ,
+  INDEX `fk_class_confirm_class1_idx` (`id_class` ASC) ,
   CONSTRAINT `fk_class_confirm_student1`
     FOREIGN KEY (`id_student`)
     REFERENCES `maturitni_cetba`.`student` (`id_student`)
